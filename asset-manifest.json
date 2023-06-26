@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/balades-immersives/static/css/main.073c9b0a.css",
+    "main.js": "/balades-immersives/static/js/main.bbc175ff.js",
+    "static/js/787.86ab98bc.chunk.js": "/balades-immersives/static/js/787.86ab98bc.chunk.js",
+    "static/media/logo.svg": "/balades-immersives/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/balades-immersives/index.html",
+    "main.073c9b0a.css.map": "/balades-immersives/static/css/main.073c9b0a.css.map",
+    "main.bbc175ff.js.map": "/balades-immersives/static/js/main.bbc175ff.js.map",
+    "787.86ab98bc.chunk.js.map": "/balades-immersives/static/js/787.86ab98bc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.bbc175ff.js"
+  ]
+}
