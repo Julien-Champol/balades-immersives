@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import * as THREE from 'three';
-import {OrbitControls} from "three/addons/controls/OrbitControls.js";
+import {OrbitControls} from "three/addons/controls/OrbitControls";
 import image360 from './PXL_20230628_075033818.PHOTOSPHERE.jpg'
 import image360_2 from './PXL_20230628_133755950.PHOTOSPHERE~2.jpg';
 import {Vector3} from "three";
