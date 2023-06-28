@@ -7,10 +7,12 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <div>test</div>
-                <Routes>
-                    <Route path="/" element={<Home/>}/>
-                </Routes>
+                <React.StrictMode>
+                    <div>test</div>
+                    <Routes>
+                        <Route path="/" element={<Home/>}/>
+                    </Routes>
+                </React.StrictMode>
             </header>
             {/*<body>*/}
 
