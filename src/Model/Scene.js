@@ -1,7 +1,7 @@
 import * as THREE from "three";
-import imageDeplacement from "../deplacement.svg";
-import imageTooltip from "../infobulle.svg";
-
+import imageDeplacement from "../Images/deplacement.svg";
+import imageTooltip from "../Images/infobulle.svg";
+import Point from "./Point"
 class Scene {
     constructor(image, scene) {
         this.image = image
@@ -21,17 +21,26 @@ class Scene {
         });
         this.sphere = new THREE.Mesh(geometry, material);
         this.scene.add(this.sphere)
-        this.points.forEach(function(point){
+        this.points.forEach(function (point) {
             this.addTooltip(point)
         }.bind(this))
+
+
     }
 
-    addPoint(point){
+    /**
+     *
+     * @param {Point} point
+     */
+    addPoint(point) {
         this.points.push(point)
     }
 
+    /**
+     *
+     * @param {Point} point
+     */
     addTooltip(point) {
-        console.log(point)
         let image = "";
         switch (point.typeSprite) {
             case "deplacement":
@@ -49,7 +58,6 @@ class Scene {
         sprite.typeSprite = point.typeSprite
         sprite.position.copy(point.position.clone().normalize().multiplyScalar(30))
         sprite.scale.multiplyScalar(3)
-        console.log(sprite)
         this.scene.add(sprite);
         this.sprites.push(sprite)
         sprite.onClick = () => {
@@ -58,9 +66,9 @@ class Scene {
         }
     }
 
-    destroy(){
+    destroy() {
         this.scene.remove(this.sphere)
-        this.sprites.forEach((sprite)=>{
+        this.sprites.forEach((sprite) => {
             this.scene.remove(sprite)
         })
     }
