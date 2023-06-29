@@ -152,11 +152,11 @@ function App() {
         rendererRef.current.setSize(window.innerWidth, window.innerHeight)
         cameraRef.current.aspect = window.innerWidth / window.innerHeight
     }
-    setTimeout(function() {
-        if(document.getElementsByTagName('canvas')[0]!== undefined) {
-            document.getElementsByTagName('canvas')[0].style.display = 'none'
-        }
-    }, 1000)
+    // setTimeout(function() {
+    //     if(document.getElementsByTagName('canvas')[0]!== undefined) {
+    //         document.getElementsByTagName('canvas')[0].style.display = 'none'
+    //     }
+    // }, 1000)
 
     // document.getElementsByTagName('canvas').style.display = 'none'
     return null;
