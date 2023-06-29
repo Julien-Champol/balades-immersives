@@ -1,4 +1,9 @@
-.maps {
-    width: 100vw;
-    height: 100vh;
+.leaflet-div-icon  {
+    border: none !important;
+    background: none !important;
+}
+
+.imgPopup {
+    width: 100px;
+    height: 66px;
 }
