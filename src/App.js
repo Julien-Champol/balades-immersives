@@ -5,12 +5,15 @@ import image360 from './Images/PXL_20230628_075033818.PHOTOSPHERE.jpg'
 import image360_2 from './Images/PXL_20230628_133755950.PHOTOSPHERE~2.jpg';
 import {Vector3} from "three";
 import Scene from './Model/Scene'
+
 function App() {
     const sceneRef = useRef();
     const sceneRef_2 = useRef()
     const cameraRef = useRef();
     const rendererRef = useRef();
     const containerRef = useRef()
+    const canvasRef = useRef();
+
     let rayCaster = new THREE.Raycaster()
     const tooltip = document.querySelector('.tooltip')
     let tooltipActive = false;
@@ -21,28 +24,27 @@ function App() {
         // Scene et Controle
         const scene = new THREE.Scene();
 
-        let oScene1 = new Scene(image360, scene,[])
+        let oScene1 = new Scene(image360, scene, [])
 
-        let oScene2 = new Scene(image360_2, scene,[])
+        let oScene2 = new Scene(image360_2, scene, [])
 
         oScene1.addPoint({
-            position : new Vector3(-17.60, -19.48, 42.50),
-            nom : 'Déplacement',
-            typeSprite : "deplacement",
-            scene : oScene2
+            position: new Vector3(-17.60, -19.48, 42.50),
+            nom: 'Déplacement',
+            typeSprite: "deplacement",
+            scene: oScene2
 
         })
 
 
-
         oScene2.addPoint({
-            position : new Vector3(
+            position: new Vector3(
                 42.54621820468249,
                 -25.619583468013133,
                 1.8401114612655096),
-            nom : 'Déplacement',
-            typeSprite : "deplacement",
-            scene : oScene1
+            nom: 'Déplacement',
+            typeSprite: "deplacement",
+            scene: oScene1
 
         })
         oScene1.createScene()
@@ -51,11 +53,10 @@ function App() {
         sceneRef.current = oScene1
 
 
-
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 200);
         cameraRef.current = camera;
 
-        const renderer = new THREE.WebGLRenderer();
+        const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current });
         rendererRef.current = renderer;
 
         const controls = new OrbitControls(camera, renderer.domElement);
@@ -64,7 +65,6 @@ function App() {
         controls.enableZoom = false;
         camera.position.set(-1, 0, 0);
         controls.update();
-
 
 
         // Render
@@ -78,11 +78,11 @@ function App() {
 
         animate();
 
-        container.addEventListener('resize', onResize)
+        container.addEventListener('resize', onResize())
         container.addEventListener('click', onClick)
         container.addEventListener('mousemove', onMouseMove)
         return () => {
-            // renderer.dispose();
+            renderer.dispose();
         };
 
     }, []);
@@ -106,7 +106,7 @@ function App() {
             if (intersect.object.type === 'Sprite') {
                 let p = intersect.object.position.clone().project(cameraRef.current)
                 tooltip.style.top = (-1 * p.y + 1) * window.innerHeight / 2 - 50 + 'px'
-                tooltip.style.left = (p.x + 1) * window.innerWidth / 2 +'px'
+                tooltip.style.left = (p.x + 1) * window.innerWidth / 2 + 'px'
                 tooltip.classList.add('is-active')
                 tooltip.innerHTML = intersect.object.name
                 tooltipActive = true
@@ -114,7 +114,7 @@ function App() {
             }
         })
 
-        if(foundSprite === false && tooltipActive){
+        if (foundSprite === false && tooltipActive) {
             tooltip.classList.remove("is-active")
         }
     }
@@ -147,19 +147,12 @@ function App() {
     }
 
 
-
     const onResize = () => {
         rendererRef.current.setSize(window.innerWidth, window.innerHeight)
         cameraRef.current.aspect = window.innerWidth / window.innerHeight
     }
-    // setTimeout(function() {
-    //     if(document.getElementsByTagName('canvas')[0]!== undefined) {
-    //         document.getElementsByTagName('canvas')[0].style.display = 'none'
-    //     }
-    // }, 1000)
 
-    // document.getElementsByTagName('canvas').style.display = 'none'
-    return null;
+    return <canvas ref={canvasRef} />;
 }
 
 
