@@ -174,6 +174,7 @@ function App() {
     }, 1000)
 
     // document.getElementsByTagName('canvas').style.display = 'none'
+
     return null;
 }
 
