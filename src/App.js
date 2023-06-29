@@ -1,10 +1,10 @@
 import React, {useEffect, useRef} from 'react';
 import * as THREE from 'three';
 import {OrbitControls} from "three/addons/controls/OrbitControls";
-import image360 from './PXL_20230628_075033818.PHOTOSPHERE.jpg'
-import image360_2 from './PXL_20230628_133755950.PHOTOSPHERE~2.jpg';
+import image360 from './Images/PXL_20230628_075033818.PHOTOSPHERE.jpg'
+import image360_2 from './Images/PXL_20230628_133755950.PHOTOSPHERE~2.jpg';
 import {Vector3} from "three";
-import Scene from './Scene'
+import Scene from './Model/Scene'
 function App() {
     const sceneRef = useRef();
     const sceneRef_2 = useRef()
@@ -36,7 +36,10 @@ function App() {
 
 
         oScene2.addPoint({
-            position : new Vector3(-17.60, -19.48, 42.50),
+            position : new Vector3(
+                42.54621820468249,
+                -25.619583468013133,
+                1.8401114612655096),
             nom : 'Déplacement',
             typeSprite : "deplacement",
             scene : oScene1
