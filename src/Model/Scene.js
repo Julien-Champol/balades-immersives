@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import imageDeplacement from "./deplacement.svg";
-import imageTooltip from "./infobulle.svg";
+import imageDeplacement from "../deplacement.svg";
+import imageTooltip from "../infobulle.svg";
 
 class Scene {
     constructor(image, scene) {
