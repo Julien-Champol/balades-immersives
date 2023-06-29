@@ -29,11 +29,6 @@ jobs:
 
     - name: Exécution des tests
       run: npm test
-      env:
-        CI: false
-
-    - name: Build
-      run: npm run build
 
     - name: Déploiment
       run: |
