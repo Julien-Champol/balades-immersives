@@ -61,8 +61,11 @@ class Scene {
         this.scene.add(sprite);
         this.sprites.push(sprite)
         sprite.onClick = () => {
-            this.destroy()
-            point.scene.createScene(this.scene)
+            if(point.scene != null){
+                this.destroy();
+                point.scene.createScene(this.scene);
+            }
+            
         }
     }
 
