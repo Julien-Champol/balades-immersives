@@ -1,16 +1,19 @@
 {
   "files": {
-    "main.css": "/balades-immersives/static/css/main.073c9b0a.css",
-    "main.js": "/balades-immersives/static/js/main.bbc175ff.js",
+    "main.css": "/balades-immersives/static/css/main.4a5aaa32.css",
+    "main.js": "/balades-immersives/static/js/main.ca66219c.js",
     "static/js/787.86ab98bc.chunk.js": "/balades-immersives/static/js/787.86ab98bc.chunk.js",
-    "static/media/logo.svg": "/balades-immersives/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "static/media/PXL_20230628_133755950.PHOTOSPHERE~2.jpg": "/balades-immersives/static/media/PXL_20230628_133755950.PHOTOSPHERE~2.8d10d2537bc6bcc64cf0.jpg",
+    "static/media/PXL_20230628_075033818.PHOTOSPHERE.jpg": "/balades-immersives/static/media/PXL_20230628_075033818.PHOTOSPHERE.96cd875d8979edc5ae90.jpg",
+    "static/media/deplacement.svg": "/balades-immersives/static/media/deplacement.6f2b629daad61ae6ea7e203b5d316ec7.svg",
     "index.html": "/balades-immersives/index.html",
-    "main.073c9b0a.css.map": "/balades-immersives/static/css/main.073c9b0a.css.map",
-    "main.bbc175ff.js.map": "/balades-immersives/static/js/main.bbc175ff.js.map",
+    "static/media/infobulle.svg": "/balades-immersives/static/media/infobulle.1d57e2dc5d75ad599571cac7657cb8aa.svg",
+    "main.4a5aaa32.css.map": "/balades-immersives/static/css/main.4a5aaa32.css.map",
+    "main.ca66219c.js.map": "/balades-immersives/static/js/main.ca66219c.js.map",
     "787.86ab98bc.chunk.js.map": "/balades-immersives/static/js/787.86ab98bc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.bbc175ff.js"
+    "static/css/main.4a5aaa32.css",
+    "static/js/main.ca66219c.js"
   ]
 }
