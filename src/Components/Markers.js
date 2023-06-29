@@ -25,10 +25,10 @@ const Markers = ({buildings}) => {
                     icon={iconMarker}
                 >
                     <Popup>
-                        <img className="imgPopup" src={building.URLPhoto} alt="Photo du batiment vu de devant"/><br />
+                        <img className="imgPopup" src={building.URLPhoto} alt="batiment vu de devant"/><br />
                         {building.name}<br />
                         {/*<a href="">Entrercdans le batiment</a>*/}
-                        {building.url.length > 0 && <a href={building.url} target="_blank">
+                        {building.url.length > 0 && <a href={building.url} target="_blank" rel="noreferrer">
                             consulter le site
                         </a>}
 

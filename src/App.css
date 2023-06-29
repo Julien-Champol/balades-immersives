@@ -7,3 +7,17 @@
     width: 100px;
     height: 66px;
 }
+
+.leaflet-container {
+    width: 78vw;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.menu {
+    width: 18vw;
+}

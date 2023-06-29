@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css'
 import Markers from "./Markers";
 
 
-const Home = () => {
+const Maps = () => {
     const [buildings, setBuildings] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const position = [44.79158, -0.61149]; // Coordonnées du centre de la carte
@@ -33,7 +33,7 @@ const Home = () => {
             {isLoading ? (
                 <p> Loading ...</p>
             ) : (
-                <MapContainer center={position} zoom={13} style={{height: "100vw"}}>
+                <MapContainer center={position} zoom={13} style={{height: "90vh"}}>
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -45,4 +45,4 @@ const Home = () => {
     )
 };
 
-export default Home;
+export default Maps;
