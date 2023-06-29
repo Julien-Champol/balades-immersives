@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import imageDeplacement from "../deplacement.svg";
-import imageTooltip from "../infobulle.svg";
+import imageDeplacement from "../Images/deplacement.svg";
+import imageTooltip from "../Images/infobulle.svg";
 
 class Scene {
     constructor(image, scene) {
@@ -53,8 +53,11 @@ class Scene {
         this.scene.add(sprite);
         this.sprites.push(sprite)
         sprite.onClick = () => {
-            this.destroy()
-            point.scene.createScene(this.scene)
+            if(point.scene != null){
+            this.destroy();
+            point.scene.createScene(this.scene);
+            }
+            
         }
     }
 

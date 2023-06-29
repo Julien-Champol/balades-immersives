@@ -1,18 +1,21 @@
 import React, {useEffect, useRef} from 'react';
 import * as THREE from 'three';
-import {OrbitControls} from "three/addons/controls/OrbitControls";
 import image360 from './Images/PXL_20230628_075033818.PHOTOSPHERE.jpg'
 import image360_2 from './Images/PXL_20230628_133755950.PHOTOSPHERE~2.jpg';
 import {Vector3} from "three";
-import Scene from './Model/Scene'
+import Scene from './Model/Scene';
+import Camera from './Model/Camera';
+import Renderer from './Model/Renderer';
+import Controls from './Model/Controls';
 function App() {
     const sceneRef = useRef();
     const sceneRef_2 = useRef()
     const cameraRef = useRef();
     const rendererRef = useRef();
-    const containerRef = useRef()
-    let rayCaster = new THREE.Raycaster()
-    const tooltip = document.querySelector('.tooltip')
+    const containerRef = useRef();
+    const controlerRef = useRef();
+    let rayCaster = new THREE.Raycaster();
+    const tooltip = document.querySelector('.tooltip');
     let tooltipActive = false;
     useEffect(() => {
         const container = document.body
@@ -21,9 +24,19 @@ function App() {
         // Scene et Controle
         const scene = new THREE.Scene();
 
-        let oScene1 = new Scene(image360, scene,[])
+        let oScene1 = new Scene(image360, scene,[]);
 
-        let oScene2 = new Scene(image360_2, scene,[])
+        let oScene2 = new Scene(image360_2, scene,[]);
+
+        let oCamera = new Camera(-1,0,0);
+
+        let oRenderer = new Renderer();
+
+        oCamera.createCamera();
+        oRenderer.createRenderer();
+       
+        
+        
 
         oScene1.addPoint({
             position : new Vector3(-17.60, -19.48, 42.50),
@@ -32,6 +45,13 @@ function App() {
             scene : oScene2
 
         })
+        oScene1.addPoint({
+          position : new Vector3(0, 0, 42.50),
+          nom : 'je suis laaaaaaaaaaaaaaa',
+          typeSprite : "tooltip",
+          scene : null
+
+      })
 
 
 
@@ -47,29 +67,24 @@ function App() {
         })
         oScene1.createScene()
 
-        sceneRef_2.current = oScene2
-        sceneRef.current = oScene1
+        sceneRef_2.current = oScene2;
+        sceneRef.current = oScene1;        
+        cameraRef.current = oCamera;
+        rendererRef.current = oRenderer;
 
+        let oControl = new Controls(cameraRef.current.camera,rendererRef.current.renderer);
 
+        oControl.createControls();
+        controlerRef.current = oControl;
 
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 200);
-        cameraRef.current = camera;
-
-        const renderer = new THREE.WebGLRenderer();
-        rendererRef.current = renderer;
-
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.rotateSpeed = -0.5
-
-        controls.enableZoom = false;
-        camera.position.set(-1, 0, 0);
-        controls.update();
+        
+        controlerRef.current.controls.update();
 
 
 
         // Render
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        container.appendChild(renderer.domElement);
+        
+        container.appendChild(rendererRef.current.renderer.domElement);
 
         // Tooltip
         // oScene1.addTooltip(new Vector3(30, 0, 0), 'Tableau', "tooltip")
@@ -91,7 +106,7 @@ function App() {
     const animate = () => {
         requestAnimationFrame(animate);
 
-        rendererRef.current.render(sceneRef.current.scene, cameraRef.current);
+        rendererRef.current.renderer.render(sceneRef.current.scene, cameraRef.current.camera);
     };
 
     function onMouseMove(e) {
@@ -99,12 +114,12 @@ function App() {
             (e.clientX / window.innerWidth) * 2 - 1,
             -(e.clientY / window.innerHeight) * 2 + 1
         )
-        rayCaster.setFromCamera(mouse, cameraRef.current)
+        rayCaster.setFromCamera(mouse, cameraRef.current.camera)
         let foundSprite = false;
         let intersects = rayCaster.intersectObjects(sceneRef.current.scene.children);
         intersects.forEach(function (intersect) {
             if (intersect.object.type === 'Sprite') {
-                let p = intersect.object.position.clone().project(cameraRef.current)
+                let p = intersect.object.position.clone().project(cameraRef.current.camera)
                 tooltip.style.top = (-1 * p.y + 1) * window.innerHeight / 2 - 50 + 'px'
                 tooltip.style.left = (p.x + 1) * window.innerWidth / 2 +'px'
                 tooltip.classList.add('is-active')
@@ -126,7 +141,7 @@ function App() {
         )
 
         // let rayCaster = new THREE.Raycaster()
-        rayCaster.setFromCamera(mouse, cameraRef.current)
+        rayCaster.setFromCamera(mouse, cameraRef.current.camera)
 
         let intersects = rayCaster.intersectObjects(sceneRef.current.scene.children);
         //
@@ -149,8 +164,8 @@ function App() {
 
 
     const onResize = () => {
-        rendererRef.current.setSize(window.innerWidth, window.innerHeight)
-        cameraRef.current.aspect = window.innerWidth / window.innerHeight
+        rendererRef.current.renderer.setSize(window.innerWidth, window.innerHeight)
+        cameraRef.current.camera.aspect = window.innerWidth / window.innerHeight
     }
     setTimeout(function() {
         if(document.getElementsByTagName('canvas')[0]!== undefined) {
