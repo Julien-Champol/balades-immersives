@@ -9,12 +9,14 @@ function App() {
             <header className="App-header">
                 <div>header</div>
             </header>
-            <div className="menu">test</div>
-            <React.StrictMode>
-                <Routes>
-                    <Route path="/" element={<Menu />} />
-                </Routes>
-            </React.StrictMode>
+            <div className="menu-wrapper">
+                <div className="menu">test</div>
+                <React.StrictMode>
+                    <Routes>
+                        <Route path="/" element={<Menu />} />
+                    </Routes>
+                </React.StrictMode>
+            </div>
         </div>
     );
 }
