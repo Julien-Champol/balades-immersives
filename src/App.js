@@ -1,7 +1,7 @@
-import './App.css';
 import React from "react";
-import {Routes, Route} from "react-router-dom";
-import Maps from "./Components/Maps";
+import { Route, Routes } from "react-router-dom";
+import './App.css';
+import Menu from "./Components/Menu";
 
 function App() {
     return (
@@ -9,14 +9,14 @@ function App() {
             <header className="App-header">
                 <div>header</div>
             </header>
-            <body>
-            <div className="menu">test</div>
-            <React.StrictMode>
-                <Routes>
-                    <Route path="/" element={<Maps/>}/>
-                </Routes>
-            </React.StrictMode>
-            </body>
+            <div className="menu-wrapper">
+                <div className="menu">test</div>
+                <React.StrictMode>
+                    <Routes>
+                        <Route path="/" element={<Menu />} />
+                    </Routes>
+                </React.StrictMode>
+            </div>
         </div>
     );
 }
