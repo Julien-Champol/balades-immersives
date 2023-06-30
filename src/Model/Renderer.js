@@ -1,8 +1,8 @@
 import * as THREE from "three";
 class Renderer {
 
-    createRenderer() {
-        this.renderer = new THREE.WebGLRenderer();
+    createRenderer(canvasRef) {
+        this.renderer = new THREE.WebGLRenderer({ canvas: canvasRef });
         this.renderer.setSize(window.innerWidth, window.innerHeight);  
     }
 

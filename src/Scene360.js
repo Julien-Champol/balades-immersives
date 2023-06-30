@@ -10,6 +10,7 @@ import Controls from './Model/Controls';
 import PointDeplacement from "./Model/PointDeplacement";
 import PointInteret from "./Model/PointInteret";
 function Scene360() {
+    // Définition des variables globales et constantes
     const sceneRef = useRef();
     const sceneRef_2 = useRef()
     const cameraRef = useRef();
@@ -17,55 +18,44 @@ function Scene360() {
     const containerRef = useRef()
     const canvasRef = useRef();
     const controlerRef = useRef();
-
-    let rayCaster = new THREE.Raycaster()
+    const rayCaster = new THREE.Raycaster()
     const tooltip = document.querySelector('.tooltip')
     let tooltipActive = false;
+
     useEffect(() => {
+
+        // Container
         const container = document.body
         containerRef.current = container
 
-        // Scene et Controle
+        // Scene et Points
         const scene = new THREE.Scene();
-
         let oScene1 = new Scene(image360, scene)
-
         let oScene2 = new Scene(image360_2, scene)
-
-        let oCamera = new Camera(-1,0,0);
-
-        let oRenderer = new Renderer();
-        oCamera.createCamera();
-        oRenderer.createRenderer();
-
         let oPointDeplacement1 = new PointDeplacement(new Vector3(-17.60, -19.48, 42.50), "Déplacement", oScene2);
         let oPointDeplacement2 = new PointDeplacement(new Vector3(42.54621820468249,-25.619583468013133,1.8401114612655096), "Déplacement", oScene1)
-
         oScene1.addPoint(oPointDeplacement1)
-
-
         oScene2.addPoint(oPointDeplacement2)
         oScene1.createScene()
 
+        // Caméra, control et renderer
+        let oCamera = new Camera(-1,0,0);
+        let oRenderer = new Renderer();
+        oCamera.createCamera();
+        oRenderer.createRenderer(canvasRef.current);
+        let oControl = new Controls(oCamera.camera,oRenderer.renderer);
+        oControl.createControls();
+        oControl.controls.update();
+
+        // Render
+        container.appendChild(oRenderer.renderer.domElement);
+
+        // Définition des ref
         sceneRef_2.current = oScene2;
         sceneRef.current = oScene1;
         cameraRef.current = oCamera;
         rendererRef.current = oRenderer;
-
-
-        let oControl = new Controls(cameraRef.current.camera,rendererRef.current.renderer);
-
-        oControl.createControls();
         controlerRef.current = oControl;
-
-
-        controlerRef.current.controls.update();
-
-
-
-        // Render
-
-        container.appendChild(rendererRef.current.renderer.domElement);
 
         animate();
 
