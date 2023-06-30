@@ -1,6 +1,6 @@
-import './App.css';
 import React from "react";
-import {Routes, Route} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import './App.css';
 import Menu from "./Components/Menu";
 
 function App() {
@@ -9,14 +9,12 @@ function App() {
             <header className="App-header">
                 <div>header</div>
             </header>
-            <body>
             <div className="menu">test</div>
             <React.StrictMode>
                 <Routes>
-                    <Route path="/" element={<Menu/>}/>
+                    <Route path="/" element={<Menu />} />
                 </Routes>
             </React.StrictMode>
-            </body>
         </div>
     );
 }

@@ -1,37 +1,33 @@
-import {useEffect, useState} from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import Maps from "./Maps";
 
 const Menu = () => {
-    const [buildings, setBuildings] = useState({});
-    const [checked, setChecked] = useState(false);
-    console.log("test 1")
+    const [buildings, setBuildings] = useState([]);
+
+    const messageErreur = 'Infos non disponibles';
+
     useEffect(() => {
-        console.log("test 2")
         axios({
             method: 'get',
-            url: `http://185.212.225.152:3002/buildings`  // URL déployé
-            //url: `http://localhost:3002/buildings`      // localhost
+            url: 'http://185.212.225.152:3002/buildings'
         }).then((res) => {
-            console.log(res)
             if (res.data.errors) {
-                console.log("infos non disponibles");
+                console.log(messageErreur);
             } else {
                 setBuildings(res.data);
-                console.log("then: " + res);
             }
 
         })
         // eslint-disable-next-line
     }, []);
-    console.log("menu: " + buildings);
 
     return (
         <>
             <>
                 {
                     buildings.map((building) => (
-                        <div key={building.id}>
+                        <div key={building._id}>
 
                             {/*<input type="checkbox" id="myCheckbox" checked={checked}/>
                         <label htmlFor="myCheckbox">{building.name}</label>*/}
@@ -40,7 +36,7 @@ const Menu = () => {
                 }
             </>
 
-            <Maps props={buildings}/>
+            <Maps props={buildings} />
         </>
     )
 

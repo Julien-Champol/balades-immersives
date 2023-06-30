@@ -1,7 +1,6 @@
-import React, {useState} from "react";
-import {MapContainer, TileLayer} from "react-leaflet";
-import 'leaflet/dist/leaflet.css'
-import Markers from "./Markers";
+import 'leaflet/dist/leaflet.css';
+import React from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
 
 
 const Maps = ({props}) => {
