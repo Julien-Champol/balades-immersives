@@ -2,7 +2,10 @@ import {Marker, Popup} from 'react-leaflet';
 import iconLocation from "../images/location.png";
 import L from 'leaflet';
 
-const Markers = ({buildings}) => {
+const Markers = (props) => {
+
+    const batiments = props.buildings;
+
 
     const iconMarker = new L.Icon({
         iconUrl: iconLocation,
@@ -13,17 +16,17 @@ const Markers = ({buildings}) => {
 
     return (
         <>
-            {buildings.map((building) => (
+            {batiments.map((batiment) => (
                 <Marker
-                    key={building.id}
-                    position={[building.latitude, building.longitude]}
+                    key={batiment._id}
+                    position={[batiment.latitude, batiment.longitude]}
                     icon={iconMarker}
                 >
                     <Popup>
-                        <img className="imgPopup" src={building.URLPhoto} alt="batiment vu de devant"/><br />
-                        {building.name}<br />
-                        {/*<a href="">Entrercdans le batiment</a>*/}
-                        {building.url.length > 0 && <a href={building.url} target="_blank" rel="noreferrer">
+                        <img className="imgPopup" src={batiment.URLPhoto} alt="batiment vu de devant"/><br />
+                        {batiment.name}<br />
+                        {/*<a href="">Entrer dans le batiment</a>*/}
+                        {batiment.url.length > 0 && <a href={batiment.url} target="_blank" rel="noreferrer">
                             consulter le site
                         </a>}
 

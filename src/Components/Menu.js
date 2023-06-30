@@ -1,9 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Maps from "./Maps";
 
 const Menu = () => {
     const [buildings, setBuildings] = useState([]);
+    const [checked, setChecked] = useState(false);
+    const [building, setBuilding] = useState({});
 
     const messageErreur = 'Infos non disponibles';
 
@@ -17,10 +19,16 @@ const Menu = () => {
             } else {
                 setBuildings(res.data);
             }
-
         })
         // eslint-disable-next-line
     }, []);
+
+    const handleRadioChange = (e) => {
+        if (e.target.checked) {
+            let selectedBuilding = buildings.find(building => building._id === e.target.value);
+            setBuilding(selectedBuilding);
+        }
+    };
 
     return (
         <>
@@ -28,15 +36,15 @@ const Menu = () => {
                 {
                     buildings.map((building) => (
                         <div key={building._id}>
-
-                            {/*<input type="checkbox" id="myCheckbox" checked={checked}/>
-                        <label htmlFor="myCheckbox">{building.name}</label>*/}
+                            <input type="radio" name="myCheckbox" id="myCheckbox" value={building._id}
+                                   onChange={handleRadioChange}/>
+                            <label htmlFor="myCheckbox">{building.name}</label>
                         </div>
                     ))
                 }
             </>
-
-            <Maps props={buildings} />
+            {{building} != null ? <Maps buildings={buildings} building={building}/> :
+                <Maps buildings={buildings}/>}
         </>
     )
 
