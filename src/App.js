@@ -1,7 +1,7 @@
 import './App.css';
 import React from "react";
 import {Routes, Route} from "react-router-dom";
-import Maps from "./Components/Maps";
+import Menu from "./Components/Menu";
 
 function App() {
     return (
@@ -13,7 +13,7 @@ function App() {
             <div className="menu">test</div>
             <React.StrictMode>
                 <Routes>
-                    <Route path="/" element={<Maps/>}/>
+                    <Route path="/" element={<Menu/>}/>
                 </Routes>
             </React.StrictMode>
             </body>
