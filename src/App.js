@@ -1,7 +1,8 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import './App.css';
 import Menu from "./Components/Menu";
+import Admin from "./Components/Admin";
 
 function App() {
     return (
@@ -10,10 +11,14 @@ function App() {
                 <div>header</div>
             </header>
             <div className="menu-wrapper">
-                <div className="menu">test</div>
                 <React.StrictMode>
                     <Routes>
-                        <Route path="/" element={<Menu />} />
+                        <Route path="/" element={<>
+                            <div className="menu">test pour mes boutons radio</div>
+                            <Menu/>
+                        </>}/>
+                        <Route path="/admin" element={<Admin/>}/>
+
                     </Routes>
                 </React.StrictMode>
             </div>
