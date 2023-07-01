@@ -1,4 +1,16 @@
-.leaflet-div-icon  {
+/* CSS du site entier */
+.menu-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.menu {
+    width: 18vw;
+}
+
+/*CSS de la carte*/
+.leaflet-div-icon {
     border: none !important;
     background: none !important;
 }
@@ -12,15 +24,35 @@
     width: 78vw;
 }
 
-.menu-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
 
-.menu {
-    width: 18vw;
-}
+/* CSS de la page admin */
 .adminPage {
     width: 78vw;
 }
+
+.tabCase {
+    text-align: left;
+}
+
+.adminTable {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+tr:nth-child(even) {
+    background-color: #79cffc;
+}
+
+tr:hover {
+    background-color: #79fcc8;
+}
+
+.tabTitle {
+    background-color: #007cbd;
+}
+
+

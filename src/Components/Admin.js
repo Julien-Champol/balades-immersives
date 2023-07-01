@@ -34,26 +34,28 @@ const Admin = () => {
             <h2>Espace administration</h2>
             <p>Vous êtes dans l'espace de gestion des bâtiments et photos associées.</p>
 
-            <table>
+            <table className="adminTable">
                 <caption>Bâtiments</caption>
                 <thead>
                 <tr>
-                    <th colSpan="1">Nom</th>
-                    <th>Adresse</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
+                    <th colSpan="1" className="tabCase tabTitle">Nom</th>
+                    <th className="tabCase tabTitle">Adresse</th>
+                    <th className="tabCase tabTitle">Latitude</th>
+                    <th className="tabCase tabTitle">Longitude</th>
+                    <th className="tabCase tabTitle">{" "}</th>
+
                 </tr>
                 </thead>
                 <tbody>
                 {
                     batiments.map((batiment) => (
                         <tr key={batiment._id}>
-                            <td>{batiment.name}</td>
-                            <td>{batiment.address}</td>
-                            <td>{batiment.latitude}</td>
-                            <td>{batiment.longitude}</td>
+                            <td className="tabCase">{batiment.name}</td>
+                            <td className="tabCase">{batiment.address}</td>
+                            <td className="tabCase">{batiment.latitude}</td>
+                            <td className="tabCase">{batiment.longitude}</td>
                             <td>
-                                <button onClick={() => handleEntrerClick(batiment)}>Entrer</button>
+                                <button onClick={() => handleEntrerClick(batiment)}>Choisir</button>
                             </td>
                         </tr>
                     ))
