@@ -28,7 +28,6 @@ const Admin = () => {
 
     };
 
-    console.log("batiment choisi " + selectedBatiment)
     return (
         <div className="adminPage">
             <h2>Espace administration</h2>
