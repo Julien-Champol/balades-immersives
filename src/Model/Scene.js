@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import imageDeplacement from "../Images/deplacement.svg";
 import imageTooltip from "../Images/infobulle.svg";
+import imageScene1 from "../Images/PXL_20230628_075033818.PHOTOSPHERE.jpg"
 import Point from "./Point"
 class Scene {
     constructor(image, scene) {
@@ -12,7 +13,9 @@ class Scene {
 
     createScene() {
         const geometry = new THREE.SphereGeometry(50, 32, 16);
-        const texture = new THREE.TextureLoader().load(this.image);
+        const textureLoader = new THREE.TextureLoader()
+        textureLoader.crossOrigin = "Anonymous"
+        const texture = textureLoader.load(this.image)
         texture.wrapS = THREE.RepeatWrapping
         texture.repeat.x = -1
         const material = new THREE.MeshBasicMaterial({
