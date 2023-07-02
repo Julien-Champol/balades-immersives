@@ -28,6 +28,28 @@ const Admin = () => {
 
     };
 
+    const handleDeleteClick = async (batiment) => {
+        const confirmed = window.confirm("Êtes-vous sûr de vouloir supprimer ce bâtiment ?");
+
+        if (confirmed) {
+            try {
+                const response = await axios.delete(`http://185.212.225.152:3002/buildings/${batiment._id}`);
+
+                if (response.status === 200) {
+                    console.log('Bâtiment supprimé');
+                    // Actualiser la liste des bâtiments après suppression
+                    const updatedBatiments = batiments.filter((b) => b._id !== batiment._id);
+                    setBatiments(updatedBatiments);
+                } else {
+                    console.log('La suppression du bâtiment a échoué');
+                }
+            } catch (error) {
+                console.log('Erreur lors de la suppression du bâtiment:', error);
+            }
+        }
+    };
+
+
     return (
         <div className="adminPage">
             <h2>Espace administration</h2>
@@ -42,7 +64,7 @@ const Admin = () => {
                     <th className="tabCase tabTitle">Latitude</th>
                     <th className="tabCase tabTitle">Longitude</th>
                     <th className="tabCase tabTitle">{" "}</th>
-
+                    <th className="tabCase tabTitle">{" "}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -55,6 +77,9 @@ const Admin = () => {
                             <td className="tabCase">{batiment.longitude}</td>
                             <td>
                                 <button onClick={() => handleEntrerClick(batiment)}>Choisir</button>
+                            </td>
+                            <td>
+                                <button onClick={() => handleDeleteClick(batiment)}>Supprimer</button>
                             </td>
                         </tr>
                     ))
