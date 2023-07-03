@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import imageDeplacement from "../Images/deplacement.svg";
-import imageTooltip from "../Images/infobulle.svg";
+import imageDeplacement from "../Images/deplacement.png";
+import imageTooltip from "../Images/logotype-information-dans-cercle_318-9441.avif";
 
 class Scene {
     constructor(image, scene) {
@@ -34,14 +34,15 @@ class Scene {
     }
 
     /**
-     @param {Point}
+     *
+     * @param {Point} point
      */
     addPoint(point) {
         this.points.push(point)
     }
 
     /**
-     @param {Point}
+     @param {Point} point
      */
     addTooltip(point) {
         let image = "";
