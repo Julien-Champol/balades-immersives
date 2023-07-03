@@ -3,6 +3,8 @@ import {Route, Routes} from "react-router-dom";
 import './App.css';
 import Menu from "./Components/Menu";
 import Admin from "./Components/Admin";
+import Batiments from "./Components/Batiments";
+import Users from "./Components/Users";
 
 function App() {
     return (
@@ -18,6 +20,8 @@ function App() {
                             <Menu/>
                         </>}/>
                         <Route path="/admin" element={<Admin/>}/>
+                        <Route path="/admin/buildings" element={<Batiments/>}/>
+                        <Route path="/admin/users" element={<Users/>}/>
 
                     </Routes>
                 </React.StrictMode>

@@ -4,7 +4,6 @@ import Maps from "./Maps";
 
 const Menu = () => {
     const [buildings, setBuildings] = useState([]);
-    const [checked, setChecked] = useState(false);
     const [building, setBuilding] = useState({});
 
     const messageErreur = 'Infos non disponibles';
