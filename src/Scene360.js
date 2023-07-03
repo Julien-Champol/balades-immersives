@@ -144,11 +144,11 @@ function Scene360() {
             }
         })
 
-        // let intersectss = rayCaster.intersectObject(sceneRef.current.sphere)
-        // if (intersectss.length > 0) {
-        //     console.log(intersects[0].point)
-        //     // addTooltip(intersects[0].point)
-        // }
+        let intersectss = rayCaster.intersectObject(sceneRef.current.sphere)
+        if (intersectss.length > 0) {
+            console.log(intersects[0].point)
+            // addTooltip(intersects[0].point)
+        }
     }
 
 
