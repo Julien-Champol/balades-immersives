@@ -6,6 +6,7 @@ import Camera from './Model/Camera';
 import Renderer from './Model/Renderer';
 import Controls from './Model/Controls';
 import PointDeplacement from "./Model/PointDeplacement";
+import PointInteret from "./Model/PointInteret";
 
 function Scene360() {
     // Définition des variables globales et constantes
@@ -23,7 +24,7 @@ function Scene360() {
     useEffect(() => {
 
         // A changer par l'adresse de l'API distante
-        let uri = "http://localhost:3002/photos360s-with-moves/649ad532052c480e99ccf18d";
+        let uri = "http://185.212.225.152:3002/photos360s-with-moves/649ad532052c480e99ccf18d";
         fetch(uri)
             .then(res => res.json())
             .then((photo360s) => {
@@ -47,7 +48,18 @@ function Scene360() {
                         let oPointDeplacement = new PointDeplacement(position, "Déplacement",listScene[deplacement.nextPhoto360]);
                         listScene[photo360._id].addPoint(oPointDeplacement);
                     })
+
+                    photo360.interestsPoints.forEach(function(interestPoint){
+                        let coordinates = interestPoint.coordinates[0]
+                        let position = new Vector3(coordinates.x, coordinates.y, coordinates.z);
+                        let oPointInteret = new PointInteret(position, interestPoint.name, interestPoint.description);
+                        listScene[photo360._id].addPoint(oPointInteret);
+                    })
                 })
+
+                console.log(listScene)
+
+
 
 
 
@@ -99,12 +111,12 @@ function Scene360() {
         let foundSprite = false;
         let intersects = rayCaster.intersectObjects(sceneRef.current.scene.children);
         intersects.forEach(function (intersect) {
-            if (intersect.object.type === 'Sprite') {
+            if (intersect.object.type === 'Sprite' && intersect.object.typeSprite === "tooltip") {
                 let p = intersect.object.position.clone().project(cameraRef.current.camera)
                 tooltip.style.top = (-1 * p.y + 1) * window.innerHeight / 2 - 50 + 'px'
                 tooltip.style.left = (p.x + 1) * window.innerWidth / 2 + 'px'
                 tooltip.classList.add('is-active')
-                tooltip.innerHTML = intersect.object.name
+                tooltip.innerHTML = intersect.object.description
                 tooltipActive = true
                 foundSprite = true
             }
@@ -132,11 +144,11 @@ function Scene360() {
             }
         })
 
-        let intersectss = rayCaster.intersectObject(sceneRef.current.sphere)
-        if (intersectss.length > 0) {
-            console.log(intersects[0].point)
-            // addTooltip(intersects[0].point)
-        }
+        // let intersectss = rayCaster.intersectObject(sceneRef.current.sphere)
+        // if (intersectss.length > 0) {
+        //     console.log(intersects[0].point)
+        //     // addTooltip(intersects[0].point)
+        // }
     }
 
 

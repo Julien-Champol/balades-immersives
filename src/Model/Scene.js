@@ -55,18 +55,21 @@ class Scene {
             default:
                 break;
         }
+
+        // Création du sprite
         let map = new THREE.TextureLoader().load(image);
         let materialSprite = new THREE.SpriteMaterial({map: map});
         let sprite = new THREE.Sprite(materialSprite);
         sprite.name = point.nom
-
         sprite.typeSprite = point.typeSprite
+        sprite.description = point.description
         sprite.position.copy(point.position.clone().normalize().multiplyScalar(30))
+
         sprite.scale.multiplyScalar(3)
         this.scene.add(sprite);
         this.sprites.push(sprite)
         sprite.onClick = () => {
-            if (point.scene != null) {
+            if (point.typeSprite === "deplacement") {
               this.fadeOut()
               .then(()=>{
                return this.destroy();
@@ -74,9 +77,12 @@ class Scene {
               }).then(() => {
                  return  point.scene.createScene(this.scene);
               });
-                
             }
 
+        }
+
+        sprite.onmousemove = () => {
+            console.log("test")
         }
     }
 
