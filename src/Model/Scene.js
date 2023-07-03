@@ -10,7 +10,7 @@ class Scene {
         this.scene = scene
     }
 
-    createScene() {
+      createScene() {
         const geometry = new THREE.SphereGeometry(50, 32, 16);
         const textureLoader = new THREE.TextureLoader()
         textureLoader.crossOrigin = "Anonymous"
@@ -20,9 +20,12 @@ class Scene {
         const material = new THREE.MeshBasicMaterial({
             map: texture,
             side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 100
         });
         this.sphere = new THREE.Mesh(geometry, material);
         this.scene.add(this.sphere)
+        this.fadeIn();
         this.points.forEach(function (point) {
             this.addTooltip(point)
         }.bind(this))
@@ -64,8 +67,14 @@ class Scene {
         this.sprites.push(sprite)
         sprite.onClick = () => {
             if (point.scene != null) {
-                this.destroy();
-                point.scene.createScene(this.scene);
+              this.fadeOut()
+              .then(()=>{
+               return this.destroy();
+              
+              }).then(() => {
+                 return  point.scene.createScene(this.scene);
+              });
+                
             }
 
         }
@@ -77,6 +86,53 @@ class Scene {
             this.scene.remove(sprite)
         })
     }
+     fadeOut() {
+      return new Promise((resolve) => {
+        let opacity = 1;
+    
+        // Animation pour augmenter progressivement l'opacité jusqu'à 1
+        const fadeAnimation = setInterval(() => {
+          opacity -= 0.01;
+          if (opacity <= 0) {
+            clearInterval(fadeAnimation);
+            resolve();
+          }
+      
+          // Parcours des objets de la scène et mise à jour de l'opacité du matériau
+          this.scene.traverse((object) => {
+            if (object.isMesh) {
+              object.material.opacity = opacity;
+            }
+          });
+        }, 4);
+
+      })
+     
+    }
+    fadeIn() {
+     
+      let opacity = 0;
+           
+
+      // Animation pour augmenter progressivement l'opacité jusqu'à 1
+      const fadeAnimation = setInterval(() => {
+        
+        opacity += 0.01;
+        if (opacity >= 1) {
+          clearInterval(fadeAnimation);
+        }
+
+        // Parcours des objets de la scène et mise à jour de l'opacité du matériau
+        this.scene.traverse((object) => {
+          if (object.isMesh) {
+            object.material.opacity = opacity;
+          }
+        });
+      }, 4);
+
+      }
+     
+    
 }
 
 export default Scene
