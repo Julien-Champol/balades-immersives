@@ -107,7 +107,7 @@ class Scene {
       
           // Parcours des objets de la scène et mise à jour de l'opacité du matériau
           this.scene.traverse((object) => {
-            if (object.isMesh) {
+            if (object.isMesh || object.isSprite) {
               object.material.opacity = opacity;
             }
           });
@@ -131,7 +131,7 @@ class Scene {
 
         // Parcours des objets de la scène et mise à jour de l'opacité du matériau
         this.scene.traverse((object) => {
-          if (object.isMesh) {
+          if (object.isMesh || object.isSprite) {
             object.material.opacity = opacity;
           }
         });
