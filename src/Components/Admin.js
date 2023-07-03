@@ -1,34 +1,51 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import FormBatiment from "./FormBatiment";
+import FormUser from "./FormUser";
 
 const Admin = () => {
 
     const [batiments, setBatiments] = useState([]);
-    const [showForm, setShowForm] = useState(false);
+    const [users, setUsers] = useState([]);
+    const [showFormBat, setShowFormBat] = useState(false);
+    const [showFormUser, setShowFormUser] = useState(false);
     const [selectedBatiment, setSelectedBatiment] = useState(null);
+    const [selectedUser, setSelectedUser] = useState(null);
 
     useEffect(() => {
-        axios({
-            method: 'get',
-            url: 'http://185.212.225.152:3002/buildings'
-        }).then((res) => {
-            if (res.data.errors) {
-                console.log("Infos non disponibles");
-            } else {
-                setBatiments(res.data);
-            }
-        })
+        // appel pour les bâtiments
+        axios.get('http://185.212.225.152:3002/buildings')
+            .then((res) => {
+                if (res.data.errors) {
+                    console.log("Infos non disponibles");
+                } else {
+                    setBatiments(res.data);
+                }
+                // appel pour les users
+                return axios.get('http://185.212.225.152:3002/users');
+            })
+            .then((resUsers) => {
+                if (resUsers.data.errors) {
+                    console.log('Infos sur les utilisateurs non disponibles');
+                } else {
+                    setUsers(resUsers.data);
+                    console.log(resUsers.data);
+                }
+            })
+            .catch((error) => {
+                console.log('Erreur :', error);
+            });
+
         // eslint-disable-next-line
     }, []);
-
-    const handleEntrerClick = (batiment) => {
+// fonction pour afficher le formulaire de modification du bâtiment
+    const watchBuildingClick = (batiment) => {
         setSelectedBatiment(batiment);
-        setShowForm(true);
-
+        setShowFormBat(true);
     };
 
-    const handleDeleteClick = async (batiment) => {
+    const deleteBuildingClick = async (batiment) => {
+        // affiche de popup pour confirmer la suppression
         const confirmed = window.confirm("Êtes-vous sûr de vouloir supprimer ce bâtiment ?");
 
         if (confirmed) {
@@ -49,11 +66,41 @@ const Admin = () => {
         }
     };
 
+    // fonction pour afficher le formulaire de modification d'un utilisateur
+    const watchUserClick = (user) => {
+        setSelectedUser(user);
+        setShowFormUser(true);
+    };
+
+    const deleteUserClick = async (user) => {
+        // affiche de popup pour confirmer la suppression
+        const confirmedUser = window.confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?");
+
+        if (confirmedUser) {
+            try {
+                const response = await axios.delete(`http://185.212.225.152:3002/users/${user._id}`);
+
+                if (response.status === 200) {
+                    console.log('Bâtiment supprimé');
+                    // Actualiser la liste des utilisateurs après suppression
+                    const updatedUsers = users.filter((u) => u._id !== user._id);
+                    setUsers(updatedUsers);
+                } else {
+                    console.log(`La suppression de l'utilisateur a échoué`);
+                }
+            } catch (error) {
+                console.log(`Erreur lors de la suppression de l'utilisateur:`, error);
+            }
+        }
+    };
+
 
     return (
         <div className="adminPage">
             <h2>Espace administration</h2>
-            <p>Vous êtes dans l'espace de gestion des bâtiments et photos associées.</p>
+
+
+            <p>Vous êtes dans l'espace de gestion des bâtiments, des photos associées et des utilisateurs.</p>
 
             <table className="adminTable">
                 <caption>Bâtiments</caption>
@@ -76,17 +123,48 @@ const Admin = () => {
                             <td className="tabCase">{batiment.latitude}</td>
                             <td className="tabCase">{batiment.longitude}</td>
                             <td>
-                                <button onClick={() => handleEntrerClick(batiment)}>Choisir</button>
+                                <button onClick={() => watchBuildingClick(batiment)}>Choisir</button>
                             </td>
                             <td>
-                                <button onClick={() => handleDeleteClick(batiment)}>Supprimer</button>
+                                <button onClick={() => deleteBuildingClick(batiment)}>Supprimer</button>
                             </td>
                         </tr>
                     ))
                 }
                 </tbody>
             </table>
-            {showForm && <FormBatiment batiment={selectedBatiment}/>}
+            {showFormBat && <FormBatiment batiment={selectedBatiment}/>}
+
+
+            <table className="adminTable">
+                <caption>Utilisateurs</caption>
+                <thead>
+                <tr>
+                    <th colSpan="1" className="tabCase tabTitle">Nom</th>
+                    <th className="tabCase tabTitle">email</th>
+                    <th className="tabCase tabTitle">{" "}</th>
+                    <th className="tabCase tabTitle">{" "}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {
+                    users.map((user) => (
+                        <tr key={user._id}>
+                            <td className="tabCase">{user.name}</td>
+                            <td className="tabCase">{user.email}</td>
+                            <td>
+                                <button onClick={() => watchUserClick(user)}>Modifier</button>
+                            </td>
+                            <td>
+                                <button onClick={() => deleteUserClick(user)}>Supprimer</button>
+                            </td>
+                        </tr>
+                    ))
+                }
+                </tbody>
+            </table>
+            {showFormUser && <FormUser user={selectedUser}/>}
+
         </div>
     )
 

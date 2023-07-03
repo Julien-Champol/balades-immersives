@@ -9,6 +9,7 @@ const FormBatiment = (props) => {
         latitudeBat: myBat.latitude || '',
         longitudeBat: myBat.longitude || ''
     });
+
     const handleInputChange = (e) => {
         setFormData({
             ...formData,
@@ -37,6 +38,7 @@ const FormBatiment = (props) => {
                 // Retour ok
                 console.log('Envoi validé');
                 console.log(formData);
+                window.location.reload();
             } else {
                 // Retour avec erreur
                 console.log('envoi non validé');
