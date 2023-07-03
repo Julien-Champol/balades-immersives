@@ -19,14 +19,14 @@ function Scene360() {
     const rayCaster = new THREE.Raycaster();
     const tooltip = document.querySelector('.tooltip')
     let tooltipActive = false;
-
+    let listScene = []
     useEffect(() => {
 
+        // A changer par l'adresse de l'API distante
         let uri = "http://localhost:3002/photos360s-with-moves/649ad532052c480e99ccf18d";
         fetch(uri)
             .then(res => res.json())
             .then((photo360s) => {
-                console.log(photo360s)
 
                 // Container
                 const container = document.body
@@ -34,16 +34,27 @@ function Scene360() {
 
                 // Scene et Points
                 const scene = new THREE.Scene();
-                let oScene1 = new Scene(photo360s[0].URLPhoto360, scene)
-                let oScene2 = new Scene(photo360s[1].URLPhoto360, scene)
-                let oPointDeplacement1 = new PointDeplacement(new Vector3(-17.60, -19.48, 42.50), "Déplacement", oScene2);
-                let oPointDeplacement2 = new PointDeplacement(new Vector3(42.54621820468249, -25.619583468013133, 1.8401114612655096), "Déplacement", oScene1)
-                oScene1.addPoint(oPointDeplacement1)
-                oScene2.addPoint(oPointDeplacement2)
-                oScene1.createScene()
-                console.log(oScene1)
-                sceneRef_2.current = oScene2;
-                sceneRef.current = oScene1;
+
+                photo360s.forEach(function(photo360){
+                    let oScene = new Scene(photo360.URLPhoto360, scene)
+                    listScene[photo360._id.toString()] = oScene
+                })
+
+                photo360s.forEach(function(photo360){
+                    photo360.deplacements.forEach(function(deplacement){
+                        let coordinates = deplacement.coordinates[0]
+                        let position = new Vector3(coordinates.x, coordinates.y, coordinates.z);
+                        let oPointDeplacement = new PointDeplacement(position, "Déplacement",listScene[deplacement.nextPhoto360]);
+                        listScene[photo360._id].addPoint(oPointDeplacement);
+                    })
+                })
+
+
+
+                let firstScene = Object.values(listScene)[0]
+                firstScene.createScene()
+                sceneRef.current = firstScene
+
 
                 // Caméra, control et renderer
                 let oCamera = new Camera(-1, 0, 0);
@@ -121,11 +132,11 @@ function Scene360() {
             }
         })
 
-        // let intersects = rayCaster.intersectObject(sceneRef.current.sphere)
-        // if (intersects.length > 0) {
-        //     console.log(intersects[0].point)
-        //     // addTooltip(intersects[0].point)
-        // }
+        let intersectss = rayCaster.intersectObject(sceneRef.current.sphere)
+        if (intersectss.length > 0) {
+            console.log(intersects[0].point)
+            // addTooltip(intersects[0].point)
+        }
     }
 
 

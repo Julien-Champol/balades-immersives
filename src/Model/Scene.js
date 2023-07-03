@@ -1,8 +1,7 @@
 import * as THREE from "three";
 import imageDeplacement from "../Images/deplacement.svg";
 import imageTooltip from "../Images/infobulle.svg";
-import imageScene1 from "../Images/PXL_20230628_075033818.PHOTOSPHERE.jpg"
-import Point from "./Point"
+
 class Scene {
     constructor(image, scene) {
         this.image = image
@@ -32,16 +31,14 @@ class Scene {
     }
 
     /**
-     *
-     * @param {Point} point
+     @param {Point}
      */
     addPoint(point) {
         this.points.push(point)
     }
 
     /**
-     *
-     * @param {Point} point
+     @param {Point}
      */
     addTooltip(point) {
         let image = "";
@@ -51,6 +48,8 @@ class Scene {
                 break;
             case "tooltip":
                 image = imageTooltip
+                break;
+            default:
                 break;
         }
         let map = new THREE.TextureLoader().load(image);
@@ -64,11 +63,11 @@ class Scene {
         this.scene.add(sprite);
         this.sprites.push(sprite)
         sprite.onClick = () => {
-            if(point.scene != null){
+            if (point.scene != null) {
                 this.destroy();
                 point.scene.createScene(this.scene);
             }
-            
+
         }
     }
 
