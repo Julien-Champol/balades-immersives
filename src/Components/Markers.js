@@ -1,5 +1,5 @@
 import {Marker, Popup} from 'react-leaflet';
-import iconLocation from "../images/location.png";
+import iconLocation from "../Images/location.png";
 import L from 'leaflet';
 
 const Markers = (props) => {

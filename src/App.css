@@ -24,6 +24,42 @@
     width: 78vw;
 }
 
+.maps {
+    height: 100%;
+    flex: 3;
+}
+
+header {
+    margin: auto;
+    text-align: center;
+}
+
+.menu-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.menu {
+    width: 18vw;
+}
+
+.buildings-container {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    align-items: center;
+    text-align: center;
+}
+
+.building-card {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.building-card:hover {
+    background-color:#007cbd;
+}
 
 /* CSS de la page admin */
 .adminPage {

@@ -1,13 +1,24 @@
 import axios from "axios";
-import {useEffect, useState} from "react";
-import Maps from "./Maps";
+import 'leaflet/dist/leaflet.css';
+import React, { useEffect, useState } from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
+import Markers from "./Markers";
+import ZoomController from "./ZoomController";
 
 const Menu = () => {
+
+    const positionBordeaux = [44.79158, -0.61149];
+    const defaultZoom = 13;
+
     const [buildings, setBuildings] = useState([]);
-    const [building, setBuilding] = useState({});
+    const [position, setPosition] = useState(positionBordeaux);
+    const [zoom, setZoom] = useState(defaultZoom);
 
     const messageErreur = 'Infos non disponibles';
 
+    /**
+     * Récupération de tous les bâtiments depuis l'api
+     */
     useEffect(() => {
         axios({
             method: 'get',
@@ -22,32 +33,50 @@ const Menu = () => {
         // eslint-disable-next-line
     }, []);
 
-    const handleRadioChange = (e) => {
-        if (e.target.checked) {
-            let selectedBuilding = buildings.find(building => building._id === e.target.value);
-            setBuilding(selectedBuilding);
+    /**
+     * Gestion du click sur les div des bâtiments
+     * 
+     * @param {*} e événement de changement de l'état du bouton radio 
+     */
+    const handleOnClick = (id) => {
+        if (id !== null) {
+            const selectedBuilding = buildings.find(building => building._id === id);
+            setPosition([selectedBuilding.latitude, selectedBuilding.longitude]);
+            setZoom(15);
+        } else if (id === null) {
+            setPosition(positionBordeaux);
+            setZoom(defaultZoom);
         }
     };
 
     return (
         <>
-            <>
+            <div className="buildings-container">
+                <h2>Bienvenue sur balades immersives !</h2>
+                {position[0] !== positionBordeaux[0] || position[1] !== positionBordeaux[1] ? (
+                    <button onClick={() => handleOnClick(null)}>Recentrer sur Bordeaux</button>
+                ) : ('')}
                 {
                     buildings.map((building) => (
-                        <div key={building._id}>
-                            <input type="radio" name="myCheckbox" id="myCheckbox" value={building._id}
-                                   onChange={handleRadioChange}/>
-                            <label htmlFor="myCheckbox">{building.name}</label>
+                        <div className="building-card" key={building._id} onClick={() => handleOnClick(building._id)}>
+                            <h2>{building.name}</h2>
+                            <p>{building.address}</p>
                         </div>
                     ))
                 }
-            </>
-            {{building} != null ? <Maps buildings={buildings} building={building}/> :
-                <Maps buildings={buildings}/>}
+            </div>
+            <div className="maps">
+                <MapContainer center={position} zoom={zoom} style={{ height: "90vh" }}>
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    <Markers buildings={buildings} />
+                    <ZoomController position={position} zoom={zoom} />
+                </MapContainer>
+            </div>
         </>
     )
-
-
 }
 
 export default Menu;
