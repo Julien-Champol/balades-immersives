@@ -53,7 +53,7 @@ const FormBatiment = (props) => {
         };
 
         try {
-            const response = await axios.put(`http://185.212.225.152/buildings/${myBat._id}`, formData);
+            const response = await axios.put(`https://balades-immersives.tech/buildings/${myBat._id}`, formData);
 
             if (response.status === 200) {
                 // Retour ok
