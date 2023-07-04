@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/balades-immersives/static/css/main.dc35ec98.css",
-    "main.js": "/balades-immersives/static/js/main.1ed905f0.js",
-    "static/js/787.86ab98bc.chunk.js": "/balades-immersives/static/js/787.86ab98bc.chunk.js",
-    "static/media/location.png": "/balades-immersives/static/media/location.4486e3d12a6d8597a5de.png",
-    "index.html": "/balades-immersives/index.html",
-    "main.dc35ec98.css.map": "/balades-immersives/static/css/main.dc35ec98.css.map",
-    "main.1ed905f0.js.map": "/balades-immersives/static/js/main.1ed905f0.js.map",
-    "787.86ab98bc.chunk.js.map": "/balades-immersives/static/js/787.86ab98bc.chunk.js.map"
+    "main.css": "/static/css/main.7f5abaa3.css",
+    "main.js": "/static/js/main.ca735985.js",
+    "static/js/787.86ab98bc.chunk.js": "/static/js/787.86ab98bc.chunk.js",
+    "static/media/location.png": "/static/media/location.4486e3d12a6d8597a5de.png",
+    "index.html": "/index.html",
+    "main.7f5abaa3.css.map": "/static/css/main.7f5abaa3.css.map",
+    "main.ca735985.js.map": "/static/js/main.ca735985.js.map",
+    "787.86ab98bc.chunk.js.map": "/static/js/787.86ab98bc.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dc35ec98.css",
-    "static/js/main.1ed905f0.js"
+    "static/css/main.7f5abaa3.css",
+    "static/js/main.ca735985.js"
   ]
 }
