@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/balades-immersives/static/css/main.434465f1.css",
-    "main.js": "/balades-immersives/static/js/main.99b0b8eb.js",
+    "main.js": "/balades-immersives/static/js/main.2070081e.js",
     "static/js/787.86ab98bc.chunk.js": "/balades-immersives/static/js/787.86ab98bc.chunk.js",
     "static/media/location.png": "/balades-immersives/static/media/location.4486e3d12a6d8597a5de.png",
     "static/media/deplacement.png": "/balades-immersives/static/media/deplacement.b5303eab2550e489177a.png",
     "static/media/logotype-information-dans-cercle_318-9441.avif": "/balades-immersives/static/media/logotype-information-dans-cercle_318-9441.ae475521795a2441bb90.avif",
     "index.html": "/balades-immersives/index.html",
     "main.434465f1.css.map": "/balades-immersives/static/css/main.434465f1.css.map",
-    "main.99b0b8eb.js.map": "/balades-immersives/static/js/main.99b0b8eb.js.map",
+    "main.2070081e.js.map": "/balades-immersives/static/js/main.2070081e.js.map",
     "787.86ab98bc.chunk.js.map": "/balades-immersives/static/js/787.86ab98bc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.434465f1.css",
-    "static/js/main.99b0b8eb.js"
+    "static/js/main.2070081e.js"
   ]
 }
