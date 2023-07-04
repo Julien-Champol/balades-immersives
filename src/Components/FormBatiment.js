@@ -53,8 +53,7 @@ const FormBatiment = (props) => {
         };
 
         try {
-            const response = await axios.put(`http://185.212.225.152:3002/buildings/${myBat._id}`, formData);
-            //const response = await axios.put(`http://localhost:3002/buildings/${myBat._id}`, formData);
+            const response = await axios.put(`http://185.212.225.152/buildings/${myBat._id}`, formData);
 
             if (response.status === 200) {
                 // Retour ok

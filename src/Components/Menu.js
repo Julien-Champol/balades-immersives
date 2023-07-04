@@ -11,7 +11,7 @@ const Menu = () => {
     useEffect(() => {
         axios({
             method: 'get',
-            url: 'http://185.212.225.152:3002/buildings'
+            url: 'http://185.212.225.152/buildings'
         }).then((res) => {
             if (res.data.errors) {
                 console.log(messageErreur);

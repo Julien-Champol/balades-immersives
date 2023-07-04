@@ -13,8 +13,7 @@ const Users = () => {
 
     useEffect(() => {
         // appel pour les users
-        //axios.get('http://185.212.225.152:3002/users')
-        axios.get('http://localhost:3002/users')
+        axios.get('http://185.212.225.152/users')
             .then((resUsers) => {
                 if (resUsers.data.errors) {
                     console.log('Infos sur les utilisateurs non disponibles');
@@ -45,8 +44,7 @@ const Users = () => {
 
         if (confirmedUser) {
             try {
-                //const response = await axios.delete(`http://185.212.225.152:3002/users/${user._id}`);
-                const response = await axios.delete(`http://localhost:3002/users/${user._id}`);
+                const response = await axios.delete(`http://185.212.225.152/users/${user._id}`);
 
                 if (response.status === 200) {
                     console.log('Utilisateur supprimé');

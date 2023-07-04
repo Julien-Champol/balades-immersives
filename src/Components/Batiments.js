@@ -10,8 +10,7 @@ const Batiments = () => {
 
     useEffect(() => {
         // appel pour les bâtiments
-        //axios.get('http://185.212.225.152:3002/buildings')
-        axios.get('http://localhost:3002/buildings')
+        axios.get('http://185.212.225.152/buildings')
             .then((res) => {
                 if (res.data.errors) {
                     console.log("Infos non disponibles");
@@ -33,8 +32,7 @@ const Batiments = () => {
 
         if (confirmed) {
             try {
-                //const response = await axios.delete(`http://185.212.225.152:3002/buildings/${batiment._id}`);
-                const response = await axios.delete(`http://localhost:3002/buildings/${batiment._id}`);
+                const response = await axios.delete(`http://185.212.225.152/buildings/${batiment._id}`);
 
                 if (response.status === 200) {
                     console.log('Bâtiment supprimé');
