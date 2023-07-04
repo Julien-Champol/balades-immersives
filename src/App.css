@@ -98,3 +98,19 @@ tr:hover {
 #tableauUsers {
     margin-top: 50px;
 }
+
+/* CSS de la vue 360 */
+
+.enteteScene360 {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.titreScene360 {
+
+}
+
+.boutonRetourScene360 {
+    padding-left: 10px
+}
