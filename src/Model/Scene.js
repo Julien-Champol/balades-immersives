@@ -25,13 +25,28 @@ class Scene {
         });
         this.sphere = new THREE.Mesh(geometry, material);
         this.scene.add(this.sphere)
-        this.fadeIn();
         this.points.forEach(function (point) {
             this.addTooltip(point)
         }.bind(this))
+        let opacity = 0;
+           
 
-
-    }
+        // Animation pour augmenter progressivement l'opacité jusqu'à 1
+        const fadeAnimation = setInterval(() => {
+          
+          opacity += 0.01;
+          if (opacity >= 1) {
+            clearInterval(fadeAnimation);
+          }
+  
+          // Parcours des objets de la scène et mise à jour de l'opacité du matériau
+          this.scene.traverse((object) => {
+            if (object.isMesh || object.isSprite) {
+              object.material.opacity = opacity;
+            }
+          });
+        }, 4);
+      }
 
     /**
      *
@@ -107,37 +122,19 @@ class Scene {
       
           // Parcours des objets de la scène et mise à jour de l'opacité du matériau
           this.scene.traverse((object) => {
-            if (object.isMesh) {
+            if (object.isMesh || object.isSprite) {
               object.material.opacity = opacity;
-            }
+              this.sprites.forEach((sprite) => {
+                sprite.onClick=()=>{};
+            })            
+          }
           });
         }, 4);
 
       })
      
     }
-    fadeIn() {
-     
-      let opacity = 0;
-           
-
-      // Animation pour augmenter progressivement l'opacité jusqu'à 1
-      const fadeAnimation = setInterval(() => {
-        
-        opacity += 0.01;
-        if (opacity >= 1) {
-          clearInterval(fadeAnimation);
-        }
-
-        // Parcours des objets de la scène et mise à jour de l'opacité du matériau
-        this.scene.traverse((object) => {
-          if (object.isMesh) {
-            object.material.opacity = opacity;
-          }
-        });
-      }, 4);
-
-      }
+   
      
     
 }
