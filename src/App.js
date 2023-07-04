@@ -5,12 +5,8 @@ import Menu from "./Components/Menu";
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <div>header</div>
-            </header>
+        <div className="App">   
             <div className="menu-wrapper">
-                <div className="menu">test</div>
                 <React.StrictMode>
                     <Routes>
                         <Route path="/" element={<Menu />} />
