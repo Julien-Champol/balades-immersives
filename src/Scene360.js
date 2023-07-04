@@ -24,7 +24,7 @@ function Scene360() {
     useEffect(() => {
 
         // A changer par l'adresse de l'API distante
-        let uri = "http://185.212.225.152/photos360s-with-moves/649ad532052c480e99ccf18d";
+        let uri = "https://balades-immersives.tech/photos360s-with-moves/649ad532052c480e99ccf18d";
         fetch(uri)
             .then(res => res.json())
             .then((photo360s) => {

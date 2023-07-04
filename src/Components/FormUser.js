@@ -25,7 +25,7 @@ const FormUser = (props) => {
         };
 
         try {
-            const response = await axios.put(`http://185.212.225.152/users/${myUser._id}`, formData);
+            const response = await axios.put(`https://balades-immersives.tech/users/${myUser._id}`, formData);
 
             if (response.status === 200) {
                 // Retour ok
