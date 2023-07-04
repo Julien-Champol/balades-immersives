@@ -26,16 +26,10 @@ function App() {
 
     return (
         <div className="App">
-            <header className="App-header">
-                <div>header</div>
-            </header>
             <div className="menu-wrapper">
                 <React.StrictMode>
                     <Routes>
-                        <Route path="/" element={<>
-                            <div className="menu">test pour mes boutons radio</div>
-                            <Menu/>
-                        </>}/>
+                        <Route path="/" element={<Menu />} />
                         <Route path="/admin" element={<Admin/>}/>
                         <Route path="/admin/buildings" element={<Batiments/>}/>
                         <Route path="/admin/users" element={<Users/>}/>
