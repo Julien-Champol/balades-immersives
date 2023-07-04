@@ -7,49 +7,55 @@ import Renderer from './Model/Renderer';
 import Controls from './Model/Controls';
 import PointDeplacement from "./Model/PointDeplacement";
 import PointInteret from "./Model/PointInteret";
+import {useParams} from 'react-router-dom';
 
 function Scene360() {
+
+
+    const {batimentId} = useParams();
+
     // Définition des variables globales et constantes
     const sceneRef = useRef();
-    const sceneRef_2 = useRef();
     const cameraRef = useRef();
     const rendererRef = useRef();
-    const containerRef = useRef();
     const canvasRef = useRef();
-    const controlerRef = useRef();
+    const containerRef = useRef()
     const rayCaster = new THREE.Raycaster();
     const tooltip = document.querySelector('.tooltip')
     let tooltipActive = false;
     let listScene = []
     useEffect(() => {
-
+        const header = document.querySelector("#root > div > header")
+        if (header) {
+            header.style.display = "none"
+        }
         // A changer par l'adresse de l'API distante
         let uri = "https://balades-immersives.tech/photos360s-with-moves/649ad532052c480e99ccf18d";
         fetch(uri)
             .then(res => res.json())
             .then((photo360s) => {
-
                 // Container
                 const container = document.body
                 containerRef.current = container
-
                 // Scene et Points
                 const scene = new THREE.Scene();
 
-                photo360s.forEach(function(photo360){
+                // Création des scènes
+                photo360s.forEach(function (photo360) {
                     let oScene = new Scene(photo360.URLPhoto360, scene)
                     listScene[photo360._id.toString()] = oScene
                 })
 
-                photo360s.forEach(function(photo360){
-                    photo360.deplacements.forEach(function(deplacement){
+                // Ajout des déplacements et des points d'intérêt dans les scènes
+                photo360s.forEach(function (photo360) {
+                    photo360.deplacements.forEach(function (deplacement) {
                         let coordinates = deplacement.coordinates[0]
                         let position = new Vector3(coordinates.x, coordinates.y, coordinates.z);
-                        let oPointDeplacement = new PointDeplacement(position, "Déplacement",listScene[deplacement.nextPhoto360]);
+                        let oPointDeplacement = new PointDeplacement(position, "Déplacement", listScene[deplacement.nextPhoto360]);
                         listScene[photo360._id].addPoint(oPointDeplacement);
                     })
 
-                    photo360.interestsPoints.forEach(function(interestPoint){
+                    photo360.interestsPoints.forEach(function (interestPoint) {
                         let coordinates = interestPoint.coordinates[0]
                         let position = new Vector3(coordinates.x, coordinates.y, coordinates.z);
                         let oPointInteret = new PointInteret(position, interestPoint.name, interestPoint.description);
@@ -57,12 +63,8 @@ function Scene360() {
                     })
                 })
 
-                console.log(listScene)
 
-
-
-
-
+                // Affichage de la première scène
                 let firstScene = Object.values(listScene)[0]
                 firstScene.createScene()
                 sceneRef.current = firstScene
@@ -84,11 +86,11 @@ function Scene360() {
 
                 cameraRef.current = oCamera;
                 rendererRef.current = oRenderer;
-                controlerRef.current = oControl;
 
                 animate();
 
-                container.addEventListener('resize', onResize())
+                // Ajout des évènements
+                window.addEventListener('resize', onResize)
                 container.addEventListener('click', onClick)
                 container.addEventListener('mousemove', onMouseMove)
                 return () => {
@@ -134,21 +136,18 @@ function Scene360() {
         rayCaster.setFromCamera(mouse, cameraRef.current.camera)
 
         let intersects = rayCaster.intersectObjects(sceneRef.current.scene.children);
-        //
-        // console.log(intersects)
-        //
+
         intersects.forEach(function (intersect) {
             if (intersect.object.type === 'Sprite') {
-                console.log(intersect.object.name)
                 intersect.object.onClick()
             }
         })
 
-        let intersectss = rayCaster.intersectObject(sceneRef.current.sphere)
-        if (intersectss.length > 0) {
-            console.log(intersects[0].point)
-            // addTooltip(intersects[0].point)
-        }
+        // let intersectss = rayCaster.intersectObject(sceneRef.current.sphere)
+        // if (intersectss.length > 0) {
+        //     console.log(intersects[0].point)
+        //     // addTooltip(intersects[0].point)
+        // }
     }
 
 
@@ -157,7 +156,9 @@ function Scene360() {
         cameraRef.current.camera.aspect = window.innerWidth / window.innerHeight
     }
 
-    return <canvas ref={canvasRef}/>;
+    return <div>
+        <canvas ref={canvasRef}/>
+    </div>;
 }
 
 
