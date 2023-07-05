@@ -1,7 +1,8 @@
 import * as THREE from "three";
 import imageDeplacement from "../Images/deplacement.png";
-import imageTooltip from "../Images/logotype-information-dans-cercle_318-9441.avif";
-
+import imageTooltipInfo from "../Images/logotype-information-dans-cercle_318-9441.avif";
+import imageTooltipHistoire from "../Images/pointInteretHistoire.jpg"
+import  imageTooltipTechnique from "../Images/pointInteretTechnique.gif"
 class Scene {
     constructor(image, scene) {
         this.image = image
@@ -10,7 +11,7 @@ class Scene {
         this.scene = scene
     }
 
-      createScene() {
+    createScene() {
         const geometry = new THREE.SphereGeometry(50, 32, 16);
         const textureLoader = new THREE.TextureLoader()
         textureLoader.crossOrigin = "Anonymous"
@@ -29,24 +30,24 @@ class Scene {
             this.addTooltip(point)
         }.bind(this))
         let opacity = 0;
-           
+
 
         // Animation pour augmenter progressivement l'opacité jusqu'à 1
         const fadeAnimation = setInterval(() => {
-          
-          opacity += 0.01;
-          if (opacity >= 1) {
-            clearInterval(fadeAnimation);
-          }
-  
-          // Parcours des objets de la scène et mise à jour de l'opacité du matériau
-          this.scene.traverse((object) => {
-            if (object.isMesh || object.isSprite) {
-              object.material.opacity = opacity;
+
+            opacity += 0.01;
+            if (opacity >= 1) {
+                clearInterval(fadeAnimation);
             }
-          });
+
+            // Parcours des objets de la scène et mise à jour de l'opacité du matériau
+            this.scene.traverse((object) => {
+                if (object.isMesh || object.isSprite) {
+                    object.material.opacity = opacity;
+                }
+            });
         }, 4);
-      }
+    }
 
     /**
      *
@@ -66,7 +67,20 @@ class Scene {
                 image = imageDeplacement
                 break;
             case "tooltip":
-                image = imageTooltip
+                switch (point.typePointInteret) {
+                    case "histoire":
+                        image = imageTooltipHistoire
+                        break;
+                    case "technique" :
+                        image = imageTooltipTechnique
+                        break
+                    case "general":
+                        image = imageTooltipInfo
+                        break
+                    default:
+                        image = imageTooltipInfo
+                        break
+                }
                 break;
             default:
                 break;
@@ -82,24 +96,21 @@ class Scene {
         sprite.position.copy(point.position.clone().normalize().multiplyScalar(30))
 
         sprite.scale.multiplyScalar(3)
-        this.scene.add(sprite);
-        this.sprites.push(sprite)
         sprite.onClick = () => {
             if (point.typeSprite === "deplacement") {
-              this.fadeOut()
-              .then(()=>{
-               return this.destroy();
-              
-              }).then(() => {
-                 return  point.scene.createScene(this.scene);
-              });
+                this.fadeOut()
+                    .then(() => {
+                        return this.destroy();
+
+                    }).then(() => {
+                    return point.scene.createScene(this.scene);
+                });
             }
 
         }
+        this.scene.add(sprite);
+        this.sprites.push(sprite)
 
-        sprite.onmousemove = () => {
-            console.log("test")
-        }
     }
 
     destroy() {
@@ -108,35 +119,36 @@ class Scene {
             this.scene.remove(sprite)
         })
     }
-     fadeOut() {
-      return new Promise((resolve) => {
-        let opacity = 1;
-    
-        // Animation pour augmenter progressivement l'opacité jusqu'à 1
-        const fadeAnimation = setInterval(() => {
-          opacity -= 0.01;
-          if (opacity <= 0) {
-            clearInterval(fadeAnimation);
-            resolve();
-          }
-      
-          // Parcours des objets de la scène et mise à jour de l'opacité du matériau
-          this.scene.traverse((object) => {
-            if (object.isMesh || object.isSprite) {
-              object.material.opacity = opacity;
-              this.sprites.forEach((sprite) => {
-                sprite.onClick=()=>{};
-            })            
-          }
-          });
-        }, 4);
 
-      })
-     
+    fadeOut() {
+        return new Promise((resolve) => {
+            let opacity = 1;
+
+            // Animation pour augmenter progressivement l'opacité jusqu'à 1
+            const fadeAnimation = setInterval(() => {
+                opacity -= 0.01;
+                if (opacity <= 0) {
+                    clearInterval(fadeAnimation);
+                    resolve();
+                }
+
+                // Parcours des objets de la scène et mise à jour de l'opacité du matériau
+                this.scene.traverse((object) => {
+                    if (object.isMesh || object.isSprite) {
+                        object.material.opacity = opacity;
+                        // this.sprites.forEach((sprite) => {
+                        //     sprite.onClick = () => {
+                        //     };
+                        // })
+                    }
+                });
+            }, 4);
+
+        })
+
     }
-   
-     
-    
+
+
 }
 
 export default Scene

@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import FormUser from "./FormUser";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import CreateUser from "./CreateUser";
 
 const Users = () => {
@@ -63,39 +63,39 @@ const Users = () => {
     return (
         <div className="adminPage">
             <Link to="/admin">Retour</Link>
-            < br/>
-            <button onClick={() => {handleCreateUser()}}>Créer un utilisateur</button>
-            {showFormCreate && <CreateUser/>}
+            < br />
+            <button onClick={() => { handleCreateUser() }}>Créer un utilisateur</button>
+            {showFormCreate && <CreateUser />}
 
 
             <table className="adminTable" id="tableauUsers">
                 <caption>Utilisateurs</caption>
                 <thead>
-                <tr>
-                    <th colSpan="1" className="tabCase tabTitle">Nom</th>
-                    <th className="tabCase tabTitle">email</th>
-                    <th className="tabCase tabTitle">{" "}</th>
-                    <th className="tabCase tabTitle">{" "}</th>
-                </tr>
+                    <tr>
+                        <th colSpan="1" className="tabCase tabTitle">Nom</th>
+                        <th className="tabCase tabTitle">email</th>
+                        <th className="tabCase tabTitle">{" "}</th>
+                        <th className="tabCase tabTitle">{" "}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {
-                    users.map((user) => (
-                        <tr key={user._id}>
-                            <td className="tabCase">{user.name}</td>
-                            <td className="tabCase">{user.email}</td>
-                            <td>
-                                <button onClick={() => watchUserClick(user)}>Modifier</button>
-                            </td>
-                            <td>
-                                <button onClick={() => deleteUserClick(user)}>Supprimer</button>
-                            </td>
-                        </tr>
-                    ))
-                }
+                    {
+                        users.map((user) => (
+                            <tr key={user._id}>
+                                <td className="tabCase">{user.name}</td>
+                                <td className="tabCase">{user.email}</td>
+                                <td>
+                                    <button onClick={() => watchUserClick(user)}>Modifier</button>
+                                </td>
+                                <td>
+                                    <button onClick={() => deleteUserClick(user)}>Supprimer</button>
+                                </td>
+                            </tr>
+                        ))
+                    }
                 </tbody>
             </table>
-            {showFormUser && <FormUser user={selectedUser}/>}
+            {showFormUser && <FormUser user={selectedUser} />}
         </div>
     )
 };

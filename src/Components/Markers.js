@@ -1,17 +1,27 @@
 import {Marker, Popup} from 'react-leaflet';
-import iconLocation from "../images/location.png";
+import iconLocation from "../Images/location.png";
 import L from 'leaflet';
+import {useState} from "react";
+
+import Scene360 from "../Scene360";
+import {Link} from "react-router-dom";
 
 const Markers = (props) => {
 
     const batiments = props.buildings;
-
 
     const iconMarker = new L.Icon({
         iconUrl: iconLocation,
         iconSize: new L.Point(30, 30),
         className: 'leaflet-div-icon'
     });
+
+    const hideHeader = () => {
+        const header = document.querySelector("#root > div > header")
+        if (header) {
+            header.style.display = "none"
+        }
+    }
 
 
     return (
@@ -23,12 +33,16 @@ const Markers = (props) => {
                     icon={iconMarker}
                 >
                     <Popup>
-                        <img className="imgPopup" src={batiment.URLPhoto} alt="batiment vu de devant"/><br />
-                        {batiment.name}<br />
-                        {/*<a href="">Entrer dans le batiment</a>*/}
-                        {batiment.url.length > 0 && <a href={batiment.url} target="_blank" rel="noreferrer">
-                            consulter le site
-                        </a>}
+                        <div className="popupCarte">
+                            <div className="titrePopup">{batiment.name}</div>
+                            <img className="imgPopup" src={batiment.URLPhoto} alt="batiment vu de devant"/>
+
+                            <Link className="btn btn-success" id="boutonRentrerBatiment" to={`/scene360/${batiment._id}`}>Rentrer dans le
+                                bâtiment</Link>
+                            {batiment.url.length > 0 && <a className="linkPopup" href={batiment.url} target="_blank" rel="noreferrer">
+                                consulter le site
+                            </a>}
+                        </div>
 
                     </Popup>
                 </Marker>
