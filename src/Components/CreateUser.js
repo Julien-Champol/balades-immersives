@@ -36,7 +36,7 @@ const CreateUser = () => {
         if(e.target.passwordUser.value === e.target.confirmUser.value) {
             try {
                 console.log("mon formulaire: ", formData)
-                const response = await axios.post(`https://balades-immersives.tech/users`, formData);
+                const response = await axios.post(`http://localhost:3002/users`, formData);
 
                 if (response.status === 201) {
                     // Retour ok
