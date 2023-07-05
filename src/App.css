@@ -11,10 +11,7 @@
 
 #inputRechercheBatiment {
     margin-bottom: 10px;
-}
-
-.list-buildings {
-
+    width: 90%;
 }
 
 .list-buildings {
@@ -56,7 +53,14 @@
 
 .titrePage {
     font-size: 2em;
-    padding-bottom: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    color: white;
+    background-color: #069DE0;
+}
+.btn-primary {
+    background-color: #069DE0;
+    border-color: #069DE0;
 }
 
 .leaflet-container a {
@@ -68,8 +72,8 @@
 }
 
 .imgPopup {
-    width: 100px;
-    height: 66px;
+    width: 100%;
+    /*height: 66px;*/
     padding-bottom: 5px;
 }
 
