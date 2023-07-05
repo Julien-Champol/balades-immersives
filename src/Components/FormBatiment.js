@@ -1,5 +1,6 @@
 import axios from "axios";
 import {useState} from "react";
+import {Cloudinary} from "@cloudinary/url-gen";
 
 
 const FormBatiment = (props) => {
@@ -11,19 +12,22 @@ const FormBatiment = (props) => {
         longitudeBat: myBat.longitude || '',
         URLPhotoBat: myBat.URLPhoto || ''
     });
+    const cld = new Cloudinary({cloud: {cloudName: 'dmtss9gtm'}});
+    const [imageSelected, setImageSelected] = useState("");
 
     // Gestion de l'upload de la photo avec cloudinary
-    const handlePhotoUpload = (event) => {
-        const file = event.target.files[0];
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', 'your_upload_preset');
+    const handlePhotoUpload = async (e) => {
+        e.preventDefault();
+        const formPhoto = new FormData();
+        formPhoto.append("file", imageSelected);
+        formPhoto.append("upload_preset", "balades");
 
-        axios
-            .post('https://api.cloudinary.com/v1_1/your_cloud_name/image/upload', formData)
+        await axios
+            .post('https://api.cloudinary.com/v1_1/dmtss9gtm/image/upload', formPhoto)
             .then((response) => {
                 const photoUrl = response.data.secure_url;
-                setFormData({...formData, photo: photoUrl});
+                setFormData({...formData, URLPhotoBat: photoUrl});
+                alert("photo chargée");
             })
             .catch((error) => {
                 console.error('Error uploading photo:', error);
@@ -37,7 +41,7 @@ const FormBatiment = (props) => {
             [e.target.address]: e.target.value,
             [e.target.latitude]: e.target.value,
             [e.target.longitude]: e.target.value,
-            [e.target.URLPhoto]: e.target.value,
+            //[e.target.URLPhoto]: e.target.value,
         });
     };
 
@@ -53,7 +57,7 @@ const FormBatiment = (props) => {
         };
 
         try {
-            const response = await axios.put(`http://185.212.225.152/buildings/${myBat._id}`, formData);
+            const response = await axios.put(`https://www.balades-immersives.tech/buildings/${myBat._id}`, formData);
 
             if (response.status === 200) {
                 // Retour ok
@@ -69,10 +73,6 @@ const FormBatiment = (props) => {
             console.log('erreur: ', error);
         }
     };
-
-    const uploadImage = () => {
-
-    }
 
     return (
         <>
@@ -99,10 +99,19 @@ const FormBatiment = (props) => {
                 <br/>
 
                 <label htmlFor="photo">Photo</label>
-                <input type="file" name="URLPhotoBat" id="URLPhotoBat" onChange={handlePhotoUpload}/>
-                <button id="uploadPicture" onClick={uploadImage}>Charger la photo</button>
+                <input type="file" name="photo" id="photo" onChange={
+                    (event) => {
+                        setImageSelected(event.target.files[0]);
+                    }
+                }/>
+                <input type="text" value={formData.URLPhotoBat} name="URLPhotoBat" id="URLPhotoBat"
+                       style={{display: 'none'}}
+                       onChange={handleInputChange}/>
+
+                <button id="uploadPicture" onClick={handlePhotoUpload}>Charger la photo
+                </button>
                 < br/>
-                
+
                 <button type="submit" id="submitForm">Mettre à jour</button>
             </form>
         </>

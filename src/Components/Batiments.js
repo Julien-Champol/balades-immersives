@@ -2,15 +2,17 @@ import FormBatiment from "./FormBatiment";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import CreateBuilding from "./CreateBuilding";
 
 const Batiments = () => {
     const [batiments, setBatiments] = useState([]);
     const [showFormBat, setShowFormBat] = useState(false);
+    const [showFormCreate, setShowFormCreate] = useState(false);
     const [selectedBatiment, setSelectedBatiment] = useState(null);
 
     useEffect(() => {
         // appel pour les bâtiments
-        axios.get('http://185.212.225.152/buildings')
+        axios.get('https://www.balades-immersives.tech/buildings')
             .then((res) => {
                 if (res.data.errors) {
                     console.log("Infos non disponibles");
@@ -26,13 +28,17 @@ const Batiments = () => {
         setShowFormBat(true);
     };
 
+    const handleCreateBuilding = () => {
+        setShowFormCreate(true);
+    };
+
     const deleteBuildingClick = async (batiment) => {
         // affiche de popup pour confirmer la suppression
         const confirmed = window.confirm("Êtes-vous sûr de vouloir supprimer ce bâtiment ?");
 
         if (confirmed) {
             try {
-                const response = await axios.delete(`http://185.212.225.152/buildings/${batiment._id}`);
+                const response = await axios.delete(`https://www.balades-immersives.tech/buildings/${batiment._id}`);
 
                 if (response.status === 200) {
                     console.log('Bâtiment supprimé');
@@ -51,6 +57,9 @@ const Batiments = () => {
     return (
         <div className="adminPage">
             <Link to="/admin">Retour</Link>
+            < br/>
+            <button onClick={() => {handleCreateBuilding()}}>Créer un bâtiment</button>
+            {showFormCreate && <CreateBuilding/>}
 
 
             <table className="adminTable" id="tableauBatiments">
