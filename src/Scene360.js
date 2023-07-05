@@ -61,7 +61,7 @@ function Scene360() {
                         photo360.interestsPoints.forEach(function (interestPoint) {
                             let coordinates = interestPoint.coordinates[0]
                             let position = new Vector3(coordinates.x, coordinates.y, coordinates.z);
-                            let oPointInteret = new PointInteret(position, interestPoint.name, interestPoint.description);
+                            let oPointInteret = new PointInteret(position, interestPoint.name, interestPoint.description, interestPoint.typePointInteret);
                             listScene[photo360._id].addPoint(oPointInteret);
                         })
                     })

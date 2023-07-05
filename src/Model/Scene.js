@@ -1,7 +1,8 @@
 import * as THREE from "three";
 import imageDeplacement from "../Images/deplacement.png";
-import imageTooltip from "../Images/logotype-information-dans-cercle_318-9441.avif";
-
+import imageTooltipInfo from "../Images/logotype-information-dans-cercle_318-9441.avif";
+import imageTooltipHistoire from "../Images/pointInteretHistoire.jpg"
+import  imageTooltipTechnique from "../Images/pointInteretTechnique.gif"
 class Scene {
     constructor(image, scene) {
         this.image = image
@@ -66,7 +67,20 @@ class Scene {
                 image = imageDeplacement
                 break;
             case "tooltip":
-                image = imageTooltip
+                switch (point.typePointInteret) {
+                    case "histoire":
+                        image = imageTooltipHistoire
+                        break;
+                    case "technique" :
+                        image = imageTooltipTechnique
+                        break
+                    case "general":
+                        image = imageTooltipInfo
+                        break
+                    default:
+                        image = imageTooltipInfo
+                        break
+                }
                 break;
             default:
                 break;
