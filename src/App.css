@@ -9,8 +9,32 @@
     width: 18vw;
 }
 
-#inputRechercheBatiment{
+#inputRechercheBatiment {
     margin-bottom: 10px;
+}
+
+.list-buildings {
+
+}
+
+.list-buildings {
+    overflow-y: scroll;
+    max-height: 80vh;
+    scrollbar-width: thin;
+    -ms-overflow-style: none;
+    scrollbar-color: transparent transparent;
+}
+
+.list-buildings::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.list-buildings::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.list-buildings::-webkit-scrollbar-thumb {
+    background-color: transparent;
 }
 
 /*CSS de la carte*/
@@ -25,7 +49,7 @@
     align-items: center;
 }
 
-.titrePopup{
+.titrePopup {
     font-size: 2em;
     padding-bottom: 5px;
 }
@@ -34,9 +58,11 @@
     font-size: 2em;
     padding-bottom: 15px;
 }
+
 .leaflet-container a {
     /*color: white !important;*/
 }
+
 #root > div > div > div.maps > div {
     height: 100vh !important;
 }
@@ -47,11 +73,13 @@
     padding-bottom: 5px;
 }
 
-#boutonRentrerBatiment{
+#boutonRentrerBatiment {
     color: white
 }
+
 .linkPopup {
 }
+
 .leaflet-container {
     width: 78vw;
 }
@@ -90,7 +118,7 @@ header {
 }
 
 .building-card:hover {
-    background-color:#007cbd;
+    background-color: #007cbd;
 }
 
 /* CSS de la page admin */
