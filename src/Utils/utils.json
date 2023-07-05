@@ -7,6 +7,7 @@
             "getBuildings": "https://balades-immersives.tech/buildings",
             "deleteBuilding": "https://balades-immersives.tech/buildings/{batimentId}",
             "createBuilding": "https://balades-immersives.tech/buildings",
+            "updateBuilding": "https://balades-immersives.tech/buildings/{batimentId}",
             "getUsers": "https://balades-immersives.tech/users",
             "createUser": "https://balades-immersives.tech/users",
             "updateUser": "https://balades-immersives.tech/users/{userId}",

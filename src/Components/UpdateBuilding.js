@@ -1,19 +1,17 @@
 import axios from "axios";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import utils from '../Utils/utils.json';
 
 const UpdateBuilding = (props) => {
-    const myBat = props.batiment;
-    const [formData, setFormData] = useState({
-        nomBat: myBat.name || '',
-        addressBat: myBat.address || '',
-        latitudeBat: myBat.latitude || '',
-        longitudeBat: myBat.longitude || '',
-        URLPhotoBat: myBat.URLPhoto || ''
-    });
-    const [imageSelected, setImageSelected] = useState("");
+    const building = props.batiment;
 
-    // Gestion de l'upload de la photo avec cloudinary
+    useEffect(() => {
+        console.log(building)
+    })
+
+    const [imageSelected, setImageSelected] = useState("");
+    const [urlCloudinary, setUrlCloudinary] = useState(building.URLPhoto);
+
     const handlePhotoUpload = async (e) => {
         e.preventDefault();
         const formPhoto = new FormData();
@@ -21,26 +19,15 @@ const UpdateBuilding = (props) => {
         formPhoto.append("upload_preset", "balades");
 
         await axios
-            .post('https://api.cloudinary.com/v1_1/dmtss9gtm/image/upload', formPhoto)
+            .post(utils.api.cloudinary.uploadToCloudinary, formPhoto)
             .then((response) => {
                 const photoUrl = response.data.secure_url;
-                setFormData({ ...formData, URLPhotoBat: photoUrl });
-                alert("photo chargée");
+                setUrlCloudinary(photoUrl);
+                alert(utils.messages.confirmImageUploadOnCloudinary);
             })
             .catch((error) => {
-                console.error('Error uploading photo:', error);
+                console.error(error);
             });
-    };
-
-    const handleInputChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-            [e.target.address]: e.target.value,
-            [e.target.latitude]: e.target.value,
-            [e.target.longitude]: e.target.value,
-            //[e.target.URLPhoto]: e.target.value,
-        });
     };
 
     const handleSubmit = async (e) => {
@@ -51,53 +38,45 @@ const UpdateBuilding = (props) => {
             address: e.target.addressBat.value,
             latitude: e.target.latitudeBat.value,
             longitude: e.target.longitudeBat.value,
-            URLPhoto: e.target.URLPhotoBat.value
+            URLPhoto: urlCloudinary
         };
 
+        console.log(formData)
+
         try {
-            const response = await axios.put(`https://balades-immersives.tech/buildings/${myBat._id}`, formData);
+            const updateBuildingRequest = utils.api.baladesImmersives.updateBuilding.replace('{batimentId}', building._id)
+            const response = await axios.put(updateBuildingRequest, formData);
 
             if (response.status === 200) {
-                // Retour ok
-                console.log('Envoi validé');
-                console.log(formData);
                 window.location.reload();
-            } else {
-                // Retour avec erreur
-                console.log('envoi non validé');
             }
         } catch (error) {
-            // Pas d'envoi
-            console.log('erreur: ', error);
+            console.log(error);
         }
     };
-
-    const uploadImage = () => {
-
-    }
 
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <p>{myBat.name}</p>
+                <p>{building.name}</p>
 
                 <label htmlFor="nomBat">Nom</label>
-                <input type="text" name="nomBat" id="nomBat" value={formData.nomBat} onChange={handleInputChange} />
+                <input type="text" name="nomBat" id="nomBat" defaultValue={building.name} />
                 <br />
 
                 <label htmlFor="addressBat">Adresse</label>
-                <input type="text" name="addressBat" id="addressBat" value={formData.addressBat}
-                    onChange={handleInputChange} />
+                <input type="text" name="addressBat" id="addressBat" defaultValue={building.address}
+                />
                 <br />
 
                 <label htmlFor="latitudeBat">Latitude</label>
-                <input type="text" name="latitudeBat" id="latitudeBat" value={formData.latitudeBat}
-                    onChange={handleInputChange} />
+                <input type="text" name="latitudeBat" id="latitudeBat" defaultValue={building.latitude}
+                />
                 <br />
 
                 <label htmlFor="longitudeBat">Longitude</label>
-                <input type="text" name="longitudeBat" id="longitudeBat" value={formData.longitudeBat}
-                    onChange={handleInputChange} />
+                <input type="text" name="longitudeBat" id="longitudeBat" defaultValue={building.longitude}
+                />
                 <br />
 
                 <label htmlFor="photo">Photo</label>
@@ -106,9 +85,9 @@ const UpdateBuilding = (props) => {
                         setImageSelected(event.target.files[0]);
                     }
                 } />
-                <input type="text" value={formData.URLPhotoBat} name="URLPhotoBat" id="URLPhotoBat"
+                <input type="text" defaultValue={building.URLPhoto} name="URLPhotoBat" id="URLPhotoBat"
                     style={{ display: 'none' }}
-                    onChange={handleInputChange} />
+                />
 
                 <button id="uploadPicture" onClick={handlePhotoUpload}>Charger la photo
                 </button>
