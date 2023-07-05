@@ -1,20 +1,42 @@
 import axios from "axios";
-
 const CreateUser = () => {
+    const bcrypt = require('bcryptjs');
 
     const createUserForm = async (e) => {
         e.preventDefault();
+        const hashPassword = async (password) => {
+            try {
+              const hash = await new Promise((resolve, reject) => {
+                bcrypt.hash(password, 10, (err, hash) => {
+                  if (err) reject(err);
+                  resolve(hash);
+                });
+              });
+          
+              console.log('Mot de passe haché :', hash);
+              return hash; // Retourne le hash
+            } catch (err) {
+              console.error('Erreur lors du hachage du mot de passe :', err);
+              return null; // Retourne null en cas d'erreur
+            }
+          };
+          
+          // Utilisation :
+          const hashedPassword = await hashPassword(e.target.passwordUser.value);
+          console.log(hashedPassword); // Affiche le hash haché ou null en cas d'erreur
+          
 
         const formData = {
             name: e.target.nomUser.value,
             email: e.target.emailUser.value,
-            password: e.target.passwordUser.value,
+            
+            password: await hashPassword(e.target.passwordUser.value),
         };
 
         if(e.target.passwordUser.value === e.target.confirmUser.value) {
             try {
                 console.log("mon formulaire: ", formData)
-                const response = await axios.post(`http://185.212.225.152/users`, formData);
+                const response = await axios.post(`https://balades-immersives.tech/users`, formData);
 
                 if (response.status === 201) {
                     // Retour ok

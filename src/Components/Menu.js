@@ -11,7 +11,7 @@ const Menu = () => {
     useEffect(() => {
         axios({
             method: 'get',
-            url: 'http://185.212.225.152/buildings'
+            url: 'https://balades-immersives.tech/buildings'
         }).then((res) => {
             if (res.data.errors) {
                 console.log(messageErreur);
@@ -30,7 +30,7 @@ const Menu = () => {
     };
 
     return (
-        <>
+        <>   
             <>
                 {
                     buildings.map((building) => (

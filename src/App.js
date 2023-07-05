@@ -1,16 +1,23 @@
 import React from "react";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes,useNavigate} from "react-router-dom";
 import './App.css';
 import Menu from "./Components/Menu";
 import Admin from "./Components/Admin";
 import Batiments from "./Components/Batiments";
 import Users from "./Components/Users";
+import Login from "./Components/Login";
 
 function App() {
+    const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
+
     return (
         <div className="App">
             <header className="App-header">
-                <div>header</div>
+            <button onClick={handleLoginClick}>login</button>
             </header>
             <div className="menu-wrapper">
                 <React.StrictMode>
@@ -22,7 +29,7 @@ function App() {
                         <Route path="/admin" element={<Admin/>}/>
                         <Route path="/admin/buildings" element={<Batiments/>}/>
                         <Route path="/admin/users" element={<Users/>}/>
-
+                        <Route path= "/login" element={<Login />}/>
                     </Routes>
                 </React.StrictMode>
             </div>
