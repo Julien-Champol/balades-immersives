@@ -6,22 +6,7 @@ const Login = () => {
   const bcrypt = require('bcryptjs');
 
   const navigate = useNavigate();
-  const hashPassword = async (password) => {
-    try {
-      const hash = await new Promise((resolve, reject) => {
-        bcrypt.hash(password, 10, (err, hash) => {
-          if (err) reject(err);
-          resolve(hash);
-        });
-      });
-
-      console.log('Mot de passe haché :', hash);
-      return hash; // Retourne le hash
-    } catch (err) {
-      console.error('Erreur lors du hachage du mot de passe :', err);
-      return null; // Retourne null en cas d'erreur
-    }
-  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

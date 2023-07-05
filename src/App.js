@@ -16,9 +16,6 @@ function App() {
 
     return (
         <div className="App">
-            <header className="App-header">
-            <button onClick={handleLoginClick}>login</button>
-            </header>
             <div className="menu-wrapper">
                 <React.StrictMode>
                     <Routes>
