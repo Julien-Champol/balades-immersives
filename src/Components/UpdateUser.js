@@ -1,7 +1,8 @@
 import axios from "axios";
 import {useState} from "react";
+import utils from '../Utils/utils.json';
 
-const FormUser = (props) => {
+const UpdateUser = (props) => {
     const myUser = props.user;
     const [formData, setFormData] = useState({
         nomUser: myUser.name || '',
@@ -25,20 +26,14 @@ const FormUser = (props) => {
         };
 
         try {
-            const response = await axios.put(`https://balades-immersives.tech/users/${myUser._id}`, formData);
+            const updateUserRequest = utils.api.baladesImmersives.updateUser.replace('{userId}', myUser._id);
+            const response = await axios.put(updateUserRequest, formData);
 
             if (response.status === 200) {
-                // Retour ok
-                console.log('Envoi validé');
-                console.log(formData);
                 window.location.reload();
-            } else {
-                // Retour avec erreur
-                console.log('envoi non validé');
             }
         } catch (error) {
-            // Pas d'envoi
-            console.log('erreur: ', error);
+            console.log(error);
         }
     };
 
@@ -63,4 +58,4 @@ const FormUser = (props) => {
     )
 }
 
-export default FormUser;
+export default UpdateUser;

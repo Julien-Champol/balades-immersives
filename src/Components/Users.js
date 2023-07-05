@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
-import FormUser from "./FormUser";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import utils from '../Utils/utils.json';
 import CreateUser from "./CreateUser";
+import UpdateUser from "./UpdateUser";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -12,17 +13,12 @@ const Users = () => {
 
 
     useEffect(() => {
-        // appel pour les users
-        axios.get('https://balades-immersives.tech/users')
+        axios.get(utils.api.baladesImmersives.getUsers)
             .then((resUsers) => {
-                if (resUsers.data.errors) {
-                    console.log('Infos sur les utilisateurs non disponibles');
-                } else {
-                    setUsers(resUsers.data);
-                }
+                setUsers(resUsers.data);
             })
             .catch((error) => {
-                console.log('Erreur :', error);
+                console.log(error);
             });
 
         // eslint-disable-next-line
@@ -44,18 +40,15 @@ const Users = () => {
 
         if (confirmedUser) {
             try {
-                const response = await axios.delete(`https://balades-immersives.tech/users/${user._id}`);
+                const deleteUserRequest = utils.api.baladesImmersives.deleteUser.replace('{userId}', user._id)
+                const response = await axios.delete(deleteUserRequest);
 
                 if (response.status === 200) {
-                    console.log('Utilisateur supprimé');
-                    // Actualiser la liste des utilisateurs après suppression
                     const updatedUsers = users.filter((u) => u._id !== user._id);
                     setUsers(updatedUsers);
-                } else {
-                    console.log(`La suppression de l'utilisateur a échoué`);
                 }
             } catch (error) {
-                console.log(`Erreur lors de la suppression de l'utilisateur:`, error);
+                console.log(error);
             }
         }
     };
@@ -95,7 +88,7 @@ const Users = () => {
                     }
                 </tbody>
             </table>
-            {showFormUser && <FormUser user={selectedUser} />}
+            {showFormUser && <UpdateUser user={selectedUser} />}
         </div>
     )
 };

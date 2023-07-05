@@ -1,9 +1,8 @@
 import axios from "axios";
-import {useState} from "react";
-import {Cloudinary} from "@cloudinary/url-gen";
+import { useState } from "react";
 
 
-const FormBatiment = (props) => {
+const UpdateBuilding = (props) => {
     const myBat = props.batiment;
     const [formData, setFormData] = useState({
         nomBat: myBat.name || '',
@@ -12,7 +11,6 @@ const FormBatiment = (props) => {
         longitudeBat: myBat.longitude || '',
         URLPhotoBat: myBat.URLPhoto || ''
     });
-    const cld = new Cloudinary({cloud: {cloudName: 'dmtss9gtm'}});
     const [imageSelected, setImageSelected] = useState("");
 
     // Gestion de l'upload de la photo avec cloudinary
@@ -26,7 +24,7 @@ const FormBatiment = (props) => {
             .post('https://api.cloudinary.com/v1_1/dmtss9gtm/image/upload', formPhoto)
             .then((response) => {
                 const photoUrl = response.data.secure_url;
-                setFormData({...formData, URLPhotoBat: photoUrl});
+                setFormData({ ...formData, URLPhotoBat: photoUrl });
                 alert("photo chargée");
             })
             .catch((error) => {
@@ -84,42 +82,42 @@ const FormBatiment = (props) => {
                 <p>{myBat.name}</p>
 
                 <label htmlFor="nomBat">Nom</label>
-                <input type="text" name="nomBat" id="nomBat" value={formData.nomBat} onChange={handleInputChange}/>
-                <br/>
+                <input type="text" name="nomBat" id="nomBat" value={formData.nomBat} onChange={handleInputChange} />
+                <br />
 
                 <label htmlFor="addressBat">Adresse</label>
                 <input type="text" name="addressBat" id="addressBat" value={formData.addressBat}
-                       onChange={handleInputChange}/>
-                <br/>
+                    onChange={handleInputChange} />
+                <br />
 
                 <label htmlFor="latitudeBat">Latitude</label>
                 <input type="text" name="latitudeBat" id="latitudeBat" value={formData.latitudeBat}
-                       onChange={handleInputChange}/>
-                <br/>
+                    onChange={handleInputChange} />
+                <br />
 
                 <label htmlFor="longitudeBat">Longitude</label>
                 <input type="text" name="longitudeBat" id="longitudeBat" value={formData.longitudeBat}
-                       onChange={handleInputChange}/>
-                <br/>
+                    onChange={handleInputChange} />
+                <br />
 
                 <label htmlFor="photo">Photo</label>
                 <input type="file" name="photo" id="photo" onChange={
                     (event) => {
                         setImageSelected(event.target.files[0]);
                     }
-                }/>
+                } />
                 <input type="text" value={formData.URLPhotoBat} name="URLPhotoBat" id="URLPhotoBat"
-                       style={{display: 'none'}}
-                       onChange={handleInputChange}/>
+                    style={{ display: 'none' }}
+                    onChange={handleInputChange} />
 
                 <button id="uploadPicture" onClick={handlePhotoUpload}>Charger la photo
                 </button>
-                < br/>
-                
+                < br />
+
                 <button type="submit" id="submitForm">Mettre à jour</button>
             </form>
         </>
     )
 }
 
-export default FormBatiment;
+export default UpdateBuilding;

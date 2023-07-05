@@ -1,8 +1,9 @@
-import FormBatiment from "./FormBatiment";
-import {useEffect, useState} from "react";
 import axios from "axios";
-import {Link} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import utils from '../Utils/utils.json';
 import CreateBuilding from "./CreateBuilding";
+import UpdateBuilding from "./UpdateBuilding";
 
 const Batiments = () => {
     const [batiments, setBatiments] = useState([]);
@@ -11,45 +12,35 @@ const Batiments = () => {
     const [selectedBatiment, setSelectedBatiment] = useState(null);
 
     useEffect(() => {
-        // appel pour les bâtiments
-        axios.get('https://balades-immersives.tech/buildings')
+        axios.get(utils.api.baladesImmersives.getBuildings)
             .then((res) => {
-                if (res.data.errors) {
-                    console.log("Infos non disponibles");
-                } else {
-                    setBatiments(res.data);
-                }
+                setBatiments(res.data);
             })
     }, []);
 
-    // fonction pour afficher le formulaire de modification du bâtiment
-    const watchBuildingClick = (batiment) => {
+    const watchBuildingOnClick = (batiment) => {
         setSelectedBatiment(batiment);
         setShowFormBat(true);
     };
 
-    const handleCreateBuilding = () => {
+    const createBuildingOnClick = () => {
         setShowFormCreate(true);
     };
 
-    const deleteBuildingClick = async (batiment) => {
-        // affiche de popup pour confirmer la suppression
-        const confirmed = window.confirm("Êtes-vous sûr de vouloir supprimer ce bâtiment ?");
+    const deleteBuildingOnClick = async (batiment) => {
+        const confirmed = window.confirm(utils.messages.confirmDeletionOfBuilding);
 
         if (confirmed) {
             try {
-                const response = await axios.delete(`https://balades-immersives.tech/buildings/${batiment._id}`);
+                const deleteRequest = utils.api.baladesImmersives.deleteBuilding.replace('{batimentId}', batiment._id);
+                const response = await axios.delete(deleteRequest);
 
-                if (response.status === 200) {
-                    console.log('Bâtiment supprimé');
-                    // Actualiser la liste des bâtiments après suppression
+                if (response.status === 200) { // actualisation de la liste
                     const updatedBatiments = batiments.filter((b) => b._id !== batiment._id);
                     setBatiments(updatedBatiments);
-                } else {
-                    console.log('La suppression du bâtiment a échoué');
                 }
             } catch (error) {
-                console.log('Erreur lors de la suppression du bâtiment:', error);
+                console.log(utils.messages.errorDeletionOfBuilding, error);
             }
         }
     };
@@ -57,43 +48,43 @@ const Batiments = () => {
     return (
         <div className="adminPage">
             <Link to="/admin">Retour</Link>
-            < br/>
-            <button onClick={() => {handleCreateBuilding()}}>Créer un bâtiment</button>
-            {showFormCreate && <CreateBuilding/>}
+            < br />
+            <button onClick={() => { createBuildingOnClick() }}>Créer un bâtiment</button>
+            {showFormCreate && <CreateBuilding />}
 
 
             <table className="adminTable" id="tableauBatiments">
                 <caption>Bâtiments</caption>
                 <thead>
-                <tr>
-                    <th colSpan="1" className="tabCase tabTitle">Nom</th>
-                    <th className="tabCase tabTitle">Adresse</th>
-                    <th className="tabCase tabTitle">Latitude</th>
-                    <th className="tabCase tabTitle">Longitude</th>
-                    <th className="tabCase tabTitle">{" "}</th>
-                    <th className="tabCase tabTitle">{" "}</th>
-                </tr>
+                    <tr>
+                        <th colSpan="1" className="tabCase tabTitle">Nom</th>
+                        <th className="tabCase tabTitle">Adresse</th>
+                        <th className="tabCase tabTitle">Latitude</th>
+                        <th className="tabCase tabTitle">Longitude</th>
+                        <th className="tabCase tabTitle">{" "}</th>
+                        <th className="tabCase tabTitle">{" "}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                {
-                    batiments.map((batiment) => (
-                        <tr key={batiment._id}>
-                            <td className="tabCase">{batiment.name}</td>
-                            <td className="tabCase">{batiment.address}</td>
-                            <td className="tabCase">{batiment.latitude}</td>
-                            <td className="tabCase">{batiment.longitude}</td>
-                            <td>
-                                <button onClick={() => watchBuildingClick(batiment)}>Sélectionner</button>
-                            </td>
-                            <td>
-                                <button onClick={() => deleteBuildingClick(batiment)}>Supprimer</button>
-                            </td>
-                        </tr>
-                    ))
-                }
+                    {
+                        batiments.map((batiment) => (
+                            <tr key={batiment._id}>
+                                <td className="tabCase">{batiment.name}</td>
+                                <td className="tabCase">{batiment.address}</td>
+                                <td className="tabCase">{batiment.latitude}</td>
+                                <td className="tabCase">{batiment.longitude}</td>
+                                <td>
+                                    <button onClick={() => watchBuildingOnClick(batiment)}>Sélectionner</button>
+                                </td>
+                                <td>
+                                    <button onClick={() => deleteBuildingOnClick(batiment)}>Supprimer</button>
+                                </td>
+                            </tr>
+                        ))
+                    }
                 </tbody>
             </table>
-            {showFormBat && <FormBatiment batiment={selectedBatiment}/>}
+            {showFormBat && <UpdateBuilding batiment={selectedBatiment} />}
         </div>
     )
 };

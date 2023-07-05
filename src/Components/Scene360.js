@@ -1,13 +1,14 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as THREE from 'three';
-import {Vector3} from "three";
-import Scene from './Model/Scene';
-import Camera from './Model/Camera';
-import Renderer from './Model/Renderer';
-import Controls from './Model/Controls';
-import PointDeplacement from "./Model/PointDeplacement";
-import PointInteret from "./Model/PointInteret";
-import {useParams, useNavigate} from 'react-router-dom';
+import { Vector3 } from "three";
+import Camera from '../Model/Camera';
+import Controls from '../Model/Controls';
+import PointDeplacement from "../Model/PointDeplacement";
+import PointInteret from "../Model/PointInteret";
+import Renderer from '../Model/Renderer';
+import Scene from '../Model/Scene';
+import utils from '../Utils/utils.json';
 
 function Scene360() {
 
@@ -23,14 +24,15 @@ function Scene360() {
     const rayCaster = new THREE.Raycaster();
     const tooltip = document.querySelector('.tooltip')
     let tooltipActive = false;
-    let listScene = []
+    let listScene = [];
+
     useEffect(() => {
         const header = document.querySelector("#root > div > header")
         if (header) {
             header.style.display = "none"
         }
         // A changer par l'adresse de l'API distante
-        let uri = `https://balades-immersives.tech/photos360s-with-moves/${batimentId}`;
+        const uri = utils.api.baladesImmersives.getPhotos360WithMoves.replace('{batimentId}', batimentId);
         fetch(uri)
             .then(res => res.json())
             .then((photo360s) => {

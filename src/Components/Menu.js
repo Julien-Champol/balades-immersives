@@ -2,6 +2,7 @@ import axios from "axios";
 import 'leaflet/dist/leaflet.css';
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
+import utils from '../Utils/utils.json';
 import Markers from "./Markers";
 import ZoomController from "./ZoomController";
 
@@ -14,21 +15,15 @@ const Menu = () => {
     const [position, setPosition] = useState(positionBordeaux);
     const [zoom, setZoom] = useState(defaultZoom);
 
-    const messageErreur = 'Infos non disponibles';
-
     /**
      * Récupération de tous les bâtiments depuis l'api
      */
     useEffect(() => {
         axios({
             method: 'get',
-            url: 'https://balades-immersives.tech/buildings'
+            url: utils.api.baladesImmersives.getBuildings
         }).then((res) => {
-            if (res.data.errors) {
-                console.log(messageErreur);
-            } else {
-                setBuildings(res.data);
-            }
+            setBuildings(res.data);
         })
         // eslint-disable-next-line
     }, []);

@@ -1,0 +1,25 @@
+{
+    "api": {
+        "cloudinary": {
+            "uploadToCloudinary": "https://api.cloudinary.com/v1_1/dmtss9gtm/image/upload"
+        },
+        "baladesImmersives": {
+            "getBuildings": "https://balades-immersives.tech/buildings",
+            "deleteBuilding": "https://balades-immersives.tech/buildings/{batimentId}",
+            "createBuilding": "https://balades-immersives.tech/buildings",
+            "getUsers": "https://balades-immersives.tech/users",
+            "createUser": "https://balades-immersives.tech/users",
+            "updateUser": "https://balades-immersives.tech/users/{userId}",
+            "deleteUser": "https://balades-immersives.tech/users/{userId}",
+            "getPhotos360WithMoves" : "https://balades-immersives.tech/photos360s-with-moves/{batimentId}"
+        }
+    },
+    "messages": {
+        "confirmDeletionOfBuilding": "Êtes-vous sûr de vouloir supprimer ce bâtiment ?",
+        "errorDeletionOfBuilding": "Erreur lors de la suppression du bâtiment",
+        "confirmImageUploadOnCloudinary": "Photo chargée correctement",
+        "cannotUploadToCloudinary": "Imposible de téléverser la photo",
+        "cannotConnectToApi": "Imposible de se connecter à l'API",
+        "passwordsNotCorresponding": "Les mots de passe ne sont pas identiques"
+    }
+}

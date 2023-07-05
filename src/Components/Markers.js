@@ -1,10 +1,8 @@
-import {Marker, Popup} from 'react-leaflet';
-import iconLocation from "../Images/location.png";
 import L from 'leaflet';
-import {useState} from "react";
+import { Marker, Popup } from 'react-leaflet';
+import iconLocation from "../Images/location.png";
 
-import Scene360 from "../Scene360";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Markers = (props) => {
 
@@ -15,14 +13,6 @@ const Markers = (props) => {
         iconSize: new L.Point(30, 30),
         className: 'leaflet-div-icon'
     });
-
-    const hideHeader = () => {
-        const header = document.querySelector("#root > div > header")
-        if (header) {
-            header.style.display = "none"
-        }
-    }
-
 
     return (
         <>
@@ -35,7 +25,7 @@ const Markers = (props) => {
                     <Popup>
                         <div className="popupCarte">
                             <div className="titrePopup">{batiment.name}</div>
-                            <img className="imgPopup" src={batiment.URLPhoto} alt="batiment vu de devant"/>
+                            <img className="imgPopup" src={batiment.URLPhoto} alt="batiment vu de devant" />
 
                             <Link className="btn btn-success" id="boutonRentrerBatiment" to={`/scene360/${batiment._id}`}>Rentrer dans le
                                 bâtiment</Link>
