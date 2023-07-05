@@ -9,6 +9,31 @@
     width: 18vw;
 }
 
+#inputRechercheBatiment {
+    margin-bottom: 10px;
+    width: 90%;
+}
+
+.list-buildings {
+    overflow-y: scroll;
+    max-height: 80vh;
+    scrollbar-width: thin;
+    -ms-overflow-style: none;
+    scrollbar-color: transparent transparent;
+}
+
+.list-buildings::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.list-buildings::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.list-buildings::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
 /*CSS de la carte*/
 .leaflet-div-icon {
     border: none !important;
@@ -21,33 +46,44 @@
     align-items: center;
 }
 
-.titrePopup{
+.titrePopup {
     font-size: 2em;
     padding-bottom: 5px;
 }
 
 .titrePage {
     font-size: 2em;
-    padding-bottom: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    color: white;
+    background-color: #069DE0;
 }
+.btn-primary {
+    background-color: #069DE0;
+    border-color: #069DE0;
+}
+
 .leaflet-container a {
     /*color: white !important;*/
 }
+
 #root > div > div > div.maps > div {
     height: 100vh !important;
 }
 
 .imgPopup {
-    width: 100px;
-    height: 66px;
+    width: 100%;
+    /*height: 66px;*/
     padding-bottom: 5px;
 }
 
-#boutonRentrerBatiment{
+#boutonRentrerBatiment {
     color: white
 }
+
 .linkPopup {
 }
+
 .leaflet-container {
     width: 78vw;
 }
@@ -86,7 +122,7 @@ header {
 }
 
 .building-card:hover {
-    background-color:#007cbd;
+    background-color: #007cbd;
 }
 
 /* CSS de la page admin */

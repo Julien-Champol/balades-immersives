@@ -10,7 +10,6 @@ import Scene360 from "./Components/Scene360";
 function App() {
     const deleteCanvasAndShowHeader = () => {
         const canvasElement = document.querySelector('canvas');
-        console.log(canvasElement)
 
         if (canvasElement) {
             // Supprimez l'élément <canvas> de votre DOM
