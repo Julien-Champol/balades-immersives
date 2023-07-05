@@ -50,4 +50,18 @@ Maxime DUCAMIN
 - Prise de photo du rez de chaussée
 - Rework des sprites pour les tooltip
 
+### Lancement déployé
+
+Aucune commande à prévoir, un CI/CD est présent pour déployer la branche master automatiquement
+Il suffit de faire un push de sa branche et faire un merge request pour que le déploiement se fasse.
+ATTENTION, le push sur la branche master n'est pas possible
+
+### Lancement en local
+
+En local, le projet se lance par les commandes:
+- npm i       pour installer les dépendances
+- npm start pour lancer le serveur sur le port 3002
+
+
+
 
