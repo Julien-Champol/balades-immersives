@@ -5,7 +5,7 @@ import Admin from "./Components/Admin";
 import Batiments from "./Components/Batiments";
 import Menu from "./Components/Menu";
 import Users from "./Components/Users";
-import Scene360 from "./Scene360";
+import Scene360 from "./Components/Scene360";
 
 function App() {
     const deleteCanvasAndShowHeader = () => {

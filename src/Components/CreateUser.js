@@ -1,4 +1,5 @@
 import axios from "axios";
+import utils from "../Utils/utils.json"
 
 const CreateUser = (props) => {
     const users = props.users;
@@ -21,25 +22,15 @@ const CreateUser = (props) => {
 
         if(e.target.passwordUser.value === e.target.confirmUser.value) {
             try {
-                console.log("mon formulaire: ", formData)
-                const response = await axios.post(`https://balades-immersives.tech/users`, formData);
-
+                const response = await axios.post(utils.api.baladesImmersives.createUser, formData);
                 if (response.status === 201) {
-                    // Retour ok
-                    console.log('Envoi validé');
-                    console.log(formData);
                     window.location.reload();
-                } else {
-                    // Retour avec erreur
-                    console.log('envoi non validé');
                 }
             } catch (error) {
-                // Pas d'envoi
-                console.log('erreur: ', error);
+                console.log(error);
             }
         } else {
-            console.log('Les mots de passe ne correspondent pas');
-            alert("Les mots de passe ne sont pas identiques !")
+            alert(utils.messages.passwordsNotCorresponding)
         }
     };
 
@@ -47,20 +38,20 @@ const CreateUser = (props) => {
         <>
             <form onSubmit={createUserForm}>
                 <label htmlFor="nomUser">Nom</label>
-                <input type="text" name="nomUser" id="nomUser" placeholder="Votre nom"/>
-                <br/>
+                <input type="text" name="nomUser" id="nomUser" placeholder="Votre nom" />
+                <br />
 
                 <label htmlFor="emailUser">Adresse email</label>
-                <input type="text" name="emailUser" id="emailUser" placeholder="Votre email"/>
-                <br/>
+                <input type="text" name="emailUser" id="emailUser" placeholder="Votre email" />
+                <br />
 
                 <label htmlFor="passwordUser">Mot de passe</label>
-                <input type="password" name="passwordUser" id="passwordUser" placeholder="mot de passe"/>
-                <br/>
+                <input type="password" name="passwordUser" id="passwordUser" placeholder="mot de passe" />
+                <br />
 
                 <label htmlFor="confirmUser">Confirmation mot de passe</label>
-                <input type="password" name="confirmUser" id="confirmUser" placeholder="confirmer votre mot de passe"/>
-                <br/>
+                <input type="password" name="confirmUser" id="confirmUser" placeholder="confirmer votre mot de passe" />
+                <br />
                 <button type="submit" id="submitFormUser">Valider</button>
             </form>
         </>
