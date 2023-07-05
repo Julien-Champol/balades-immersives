@@ -12,7 +12,7 @@ const Batiments = () => {
 
     useEffect(() => {
         // appel pour les bâtiments
-        axios.get('https://www.balades-immersives.tech/buildings')
+        axios.get('https://balades-immersives.tech/buildings')
             .then((res) => {
                 if (res.data.errors) {
                     console.log("Infos non disponibles");
@@ -38,7 +38,7 @@ const Batiments = () => {
 
         if (confirmed) {
             try {
-                const response = await axios.delete(`https://www.balades-immersives.tech/buildings/${batiment._id}`);
+                const response = await axios.delete(`https://balades-immersives.tech/buildings/${batiment._id}`);
 
                 if (response.status === 200) {
                     console.log('Bâtiment supprimé');

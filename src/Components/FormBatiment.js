@@ -57,7 +57,7 @@ const FormBatiment = (props) => {
         };
 
         try {
-            const response = await axios.put(`https://www.balades-immersives.tech/buildings/${myBat._id}`, formData);
+            const response = await axios.put(`https://balades-immersives.tech/buildings/${myBat._id}`, formData);
 
             if (response.status === 200) {
                 // Retour ok
@@ -73,6 +73,10 @@ const FormBatiment = (props) => {
             console.log('erreur: ', error);
         }
     };
+
+    const uploadImage = () => {
+
+    }
 
     return (
         <>
@@ -111,7 +115,7 @@ const FormBatiment = (props) => {
                 <button id="uploadPicture" onClick={handlePhotoUpload}>Charger la photo
                 </button>
                 < br/>
-
+                
                 <button type="submit" id="submitForm">Mettre à jour</button>
             </form>
         </>
