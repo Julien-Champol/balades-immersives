@@ -58,7 +58,7 @@ const Users = () => {
             <Link to="/admin">Retour</Link>
             < br />
             <button onClick={() => { handleCreateUser() }}>Créer un utilisateur</button>
-            {showFormCreate && <CreateUser />}
+            {showFormCreate && <CreateUser users={users}/>}
 
 
             <table className="adminTable" id="tableauUsers">

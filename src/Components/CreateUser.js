@@ -1,7 +1,8 @@
 import axios from "axios";
 import utils from "../Utils/utils.json"
 
-const CreateUser = () => {
+const CreateUser = (props) => {
+    const users = props.users;
 
     const createUserForm = async (e) => {
         e.preventDefault();
@@ -12,7 +13,14 @@ const CreateUser = () => {
             password: e.target.passwordUser.value,
         };
 
-        if (e.target.passwordUser.value === e.target.confirmUser.value) {
+        const existingUser = users.find(user => user.email === formData.email);
+        if (existingUser) {
+            console.log('Un utilisateur avec cette adresse e-mail existe déjà');
+            alert("Un utilisateur avec cette adresse e-mail existe déjà !");
+            return;
+        }
+
+        if(e.target.passwordUser.value === e.target.confirmUser.value) {
             try {
                 const response = await axios.post(utils.api.baladesImmersives.createUser, formData);
                 if (response.status === 201) {
