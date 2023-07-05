@@ -1,12 +1,11 @@
 import React from "react";
-import {Link, Route, Routes} from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import './App.css';
-import Menu from "./Components/Menu";
 import Admin from "./Components/Admin";
 import Batiments from "./Components/Batiments";
+import Menu from "./Components/Menu";
 import Users from "./Components/Users";
 import Scene360 from "./Scene360";
-import {log} from "three/nodes";
 
 function App() {
     const deleteCanvasAndShowHeader = () => {
