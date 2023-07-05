@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const CreateUser = () => {
+const CreateUser = (props) => {
+    const users = props.users;
 
     const createUserForm = async (e) => {
         e.preventDefault();
@@ -10,6 +11,13 @@ const CreateUser = () => {
             email: e.target.emailUser.value,
             password: e.target.passwordUser.value,
         };
+
+        const existingUser = users.find(user => user.email === formData.email);
+        if (existingUser) {
+            console.log('Un utilisateur avec cette adresse e-mail existe déjà');
+            alert("Un utilisateur avec cette adresse e-mail existe déjà !");
+            return;
+        }
 
         if(e.target.passwordUser.value === e.target.confirmUser.value) {
             try {
