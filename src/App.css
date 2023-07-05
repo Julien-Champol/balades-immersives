@@ -9,6 +9,10 @@
     width: 18vw;
 }
 
+#inputRechercheBatiment{
+    margin-bottom: 10px;
+}
+
 /*CSS de la carte*/
 .leaflet-div-icon {
     border: none !important;
