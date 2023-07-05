@@ -63,6 +63,7 @@ const Menu = () => {
         <>
             <div className="buildings-container">
                 <div className="titrePage">Bienvenue sur balades immersives !</div>
+                <div>  <button onClick={handleLoginClick}>login</button></div>
                 <label htmlFor="inputRechercheBatiment">Rechercher un bâtiment :</label>
                 <input type="search" value={searchValue} onChange={handleSearch} className="form-control"
                        id="inputRechercheBatiment"></input>
