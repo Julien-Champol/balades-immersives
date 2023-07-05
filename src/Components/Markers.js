@@ -18,7 +18,7 @@ const Markers = (props) => {
 
     const hideHeader = () => {
         const header = document.querySelector("#root > div > header")
-        if(header) {
+        if (header) {
             header.style.display = "none"
         }
     }
@@ -33,12 +33,16 @@ const Markers = (props) => {
                     icon={iconMarker}
                 >
                     <Popup>
-                        <img className="imgPopup" src={batiment.URLPhoto} alt="batiment vu de devant"/><br/>
-                        {batiment.name}<br/>
-                        <Link to={`/scene360/${batiment._id}`}>Rentrer dans le bâtiment</Link>
-                        {batiment.url.length > 0 && <a href={batiment.url} target="_blank" rel="noreferrer">
-                            consulter le site
-                        </a>}
+                        <div className="popupCarte">
+                            <div className="titrePopup">{batiment.name}</div>
+                            <img className="imgPopup" src={batiment.URLPhoto} alt="batiment vu de devant"/>
+
+                            <Link className="btn btn-success" id="boutonRentrerBatiment" to={`/scene360/${batiment._id}`}>Rentrer dans le
+                                bâtiment</Link>
+                            {batiment.url.length > 0 && <a className="linkPopup" href={batiment.url} target="_blank" rel="noreferrer">
+                                consulter le site
+                            </a>}
+                        </div>
 
                     </Popup>
                 </Marker>

@@ -15,11 +15,39 @@
     background: none !important;
 }
 
+.popupCarte {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titrePopup{
+    font-size: 2em;
+    padding-bottom: 5px;
+}
+
+.titrePage {
+    font-size: 2em;
+    padding-bottom: 15px;
+}
+.leaflet-container a {
+    /*color: white !important;*/
+}
+#root > div > div > div.maps > div {
+    height: 100vh !important;
+}
+
 .imgPopup {
     width: 100px;
     height: 66px;
+    padding-bottom: 5px;
 }
 
+#boutonRentrerBatiment{
+    color: white
+}
+.linkPopup {
+}
 .leaflet-container {
     width: 78vw;
 }

@@ -52,9 +52,9 @@ const Menu = () => {
     return (
         <>
             <div className="buildings-container">
-                <h2>Bienvenue sur balades immersives !</h2>
+                <div className="titrePage">Bienvenue sur balades immersives !</div>
                 {position[0] !== positionBordeaux[0] || position[1] !== positionBordeaux[1] ? (
-                    <button onClick={() => handleOnClick(null)}>Recentrer sur Bordeaux</button>
+                    <button className="btn btn-primary" onClick={() => handleOnClick(null)}>Recentrer sur Bordeaux</button>
                 ) : ('')}
                 {
                     buildings.map((building) => (

@@ -7,11 +7,11 @@ import Renderer from './Model/Renderer';
 import Controls from './Model/Controls';
 import PointDeplacement from "./Model/PointDeplacement";
 import PointInteret from "./Model/PointInteret";
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 
 function Scene360() {
 
-
+    const navigate = useNavigate();
     const {batimentId} = useParams();
 
     // Définition des variables globales et constantes
@@ -30,72 +30,78 @@ function Scene360() {
             header.style.display = "none"
         }
         // A changer par l'adresse de l'API distante
-        let uri = "https://balades-immersives.tech/photos360s-with-moves/649ad532052c480e99ccf18d";
+        let uri = `https://balades-immersives.tech/photos360s-with-moves/${batimentId}`;
         fetch(uri)
             .then(res => res.json())
             .then((photo360s) => {
-                // Container
-                const container = document.body
-                containerRef.current = container
-                // Scene et Points
-                const scene = new THREE.Scene();
+                if (photo360s.length > 0) {
 
-                // Création des scènes
-                photo360s.forEach(function (photo360) {
-                    let oScene = new Scene(photo360.URLPhoto360, scene)
-                    listScene[photo360._id.toString()] = oScene
-                })
 
-                // Ajout des déplacements et des points d'intérêt dans les scènes
-                photo360s.forEach(function (photo360) {
-                    photo360.deplacements.forEach(function (deplacement) {
-                        let coordinates = deplacement.coordinates[0]
-                        let position = new Vector3(coordinates.x, coordinates.y, coordinates.z);
-                        let oPointDeplacement = new PointDeplacement(position, "Déplacement", listScene[deplacement.nextPhoto360]);
-                        listScene[photo360._id].addPoint(oPointDeplacement);
+                    // Container
+                    const container = document.body
+                    containerRef.current = container
+                    // Scene et Points
+                    const scene = new THREE.Scene();
+
+                    // Création des scènes
+                    photo360s.forEach(function (photo360) {
+                        let oScene = new Scene(photo360.URLPhoto360, scene)
+                        listScene[photo360._id.toString()] = oScene
                     })
 
-                    photo360.interestsPoints.forEach(function (interestPoint) {
-                        let coordinates = interestPoint.coordinates[0]
-                        let position = new Vector3(coordinates.x, coordinates.y, coordinates.z);
-                        let oPointInteret = new PointInteret(position, interestPoint.name, interestPoint.description);
-                        listScene[photo360._id].addPoint(oPointInteret);
+                    // Ajout des déplacements et des points d'intérêt dans les scènes
+                    photo360s.forEach(function (photo360) {
+                        photo360.deplacements.forEach(function (deplacement) {
+                            let coordinates = deplacement.coordinates[0]
+                            let position = new Vector3(coordinates.x, coordinates.y, coordinates.z);
+                            let oPointDeplacement = new PointDeplacement(position, "Déplacement", listScene[deplacement.nextPhoto360]);
+                            listScene[photo360._id].addPoint(oPointDeplacement);
+                        })
+
+                        photo360.interestsPoints.forEach(function (interestPoint) {
+                            let coordinates = interestPoint.coordinates[0]
+                            let position = new Vector3(coordinates.x, coordinates.y, coordinates.z);
+                            let oPointInteret = new PointInteret(position, interestPoint.name, interestPoint.description);
+                            listScene[photo360._id].addPoint(oPointInteret);
+                        })
                     })
-                })
 
 
-                // Affichage de la première scène
-                let firstScene = Object.values(listScene)[0]
-                firstScene.createScene()
-                sceneRef.current = firstScene
+                    // Affichage de la première scène
+                    let firstScene = Object.values(listScene)[0]
+                    firstScene.createScene()
+                    sceneRef.current = firstScene
 
 
-                // Caméra, control et renderer
-                let oCamera = new Camera(-1, 0, 0);
-                let oRenderer = new Renderer();
-                oCamera.createCamera();
-                oRenderer.createRenderer(canvasRef.current);
-                let oControl = new Controls(oCamera.camera, oRenderer.renderer);
-                oControl.createControls();
-                oControl.controls.update();
+                    // Caméra, control et renderer
+                    let oCamera = new Camera(-1, 0, 0);
+                    let oRenderer = new Renderer();
+                    oCamera.createCamera();
+                    oRenderer.createRenderer(canvasRef.current);
+                    let oControl = new Controls(oCamera.camera, oRenderer.renderer);
+                    oControl.createControls();
+                    oControl.controls.update();
 
-                // Render
-                container.appendChild(oRenderer.renderer.domElement);
+                    // Render
+                    container.appendChild(oRenderer.renderer.domElement);
 
-                // Définition des ref
+                    // Définition des ref
 
-                cameraRef.current = oCamera;
-                rendererRef.current = oRenderer;
+                    cameraRef.current = oCamera;
+                    rendererRef.current = oRenderer;
 
-                animate();
+                    animate();
 
-                // Ajout des évènements
-                window.addEventListener('resize', onResize)
-                container.addEventListener('click', onClick)
-                container.addEventListener('mousemove', onMouseMove)
-                return () => {
-                    rendererRef.current.renderer.dispose();
-                };
+                    // Ajout des évènements
+                    window.addEventListener('resize', onResize)
+                    container.addEventListener('click', onClick)
+                    container.addEventListener('mousemove', onMouseMove)
+                    return () => {
+                        rendererRef.current.renderer.dispose();
+                    };
+                } else {
+                    navigate("/")
+                }
             })
 
 
