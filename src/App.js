@@ -6,8 +6,10 @@ import Batiments from "./Components/Batiments";
 import Menu from "./Components/Menu";
 import Users from "./Components/Users";
 import Scene360 from "./Components/Scene360";
+import Login from "./Components/Login"
 
 function App() {
+    
     const deleteCanvasAndShowHeader = () => {
         const canvasElement = document.querySelector('canvas');
 
@@ -31,6 +33,7 @@ function App() {
                         <Route path="/admin" element={<Admin/>}/>
                         <Route path="/admin/buildings" element={<Batiments/>}/>
                         <Route path="/admin/users" element={<Users/>}/>
+                        <Route path= "/login" element={<Login />}/>
                         <Route path="/scene360/:batimentId" element={
                             <>
                             <div className="enteteScene360">
