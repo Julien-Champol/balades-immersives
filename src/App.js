@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes,useNavigate } from "react-router-dom";
 import './App.css';
 import Admin from "./Components/Admin";
 import Batiments from "./Components/Batiments";
@@ -8,6 +8,11 @@ import Users from "./Components/Users";
 import Scene360 from "./Components/Scene360";
 
 function App() {
+    const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
     const deleteCanvasAndShowHeader = () => {
         const canvasElement = document.querySelector('canvas');
 
