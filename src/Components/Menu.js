@@ -5,6 +5,7 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import utils from '../Utils/utils.json';
 import Markers from "./Markers";
 import ZoomController from "./ZoomController";
+import { useNavigate,Link } from "react-router-dom";
 import {log} from "three/nodes";
 
 const Menu = () => {
@@ -15,6 +16,12 @@ const Menu = () => {
     const [buildings, setBuildings] = useState([]);
     const [position, setPosition] = useState(positionBordeaux);
     const [zoom, setZoom] = useState(defaultZoom);
+
+    const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
 
     /**
      * Récupération de tous les bâtiments depuis l'api
@@ -63,7 +70,7 @@ const Menu = () => {
         <>
             <div className="buildings-container">
                 <div className="titrePage">Bienvenue sur balades immersives !</div>
-                <div>  <button onClick={handleLoginClick}>login</button></div>
+                <div><Link to="/login">login</Link></div>
                 <label htmlFor="inputRechercheBatiment">Rechercher un bâtiment :</label>
                 <input type="search" value={searchValue} onChange={handleSearch} className="form-control"
                        id="inputRechercheBatiment"></input>
