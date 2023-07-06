@@ -16,7 +16,7 @@ const Menu = () => {
     const [zoomedBuilding, setZoomedBuilding] = useState({});
     const [position, setPosition] = useState(positionBordeaux);
     const [zoom, setZoom] = useState(defaultZoom);
-
+    
     const increasedZoom = 17;
 
     /**
@@ -24,8 +24,7 @@ const Menu = () => {
      */
     useEffect(() => {
         axios({
-            method: 'get',
-            url: utils.api.baladesImmersives.getBuildings
+            method: 'get', url: utils.api.baladesImmersives.getBuildings
         }).then((res) => {
             setBuildings(res.data);
         })
@@ -68,7 +67,7 @@ const Menu = () => {
         <>
             <div className="buildings-container">
                 <div className="titrePage">Bienvenue sur balades immersives !</div>
-                <div><Link to="/login">login</Link></div>
+                <div><Link className="btn btn-primary mb-1" to="/login">Se connecter</Link></div>
                 <label htmlFor="inputRechercheBatiment">Rechercher un bâtiment :</label>
                 <input type="search" value={searchValue} onChange={handleSearch} className="form-control"
                     id="inputRechercheBatiment"></input>
@@ -98,8 +97,7 @@ const Menu = () => {
                     <ZoomController position={position} zoom={zoom} />
                 </MapContainer>
             </div>
-        </>
-    )
+    </>)
 }
 
 export default Menu;

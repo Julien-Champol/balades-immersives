@@ -19,12 +19,18 @@ const Batiments = () => {
     }, []);
 
     const watchBuildingOnClick = (batiment) => {
-        setSelectedBatiment(batiment);
-        setShowFormBat(true);
+        if(batiment !== selectedBatiment) {
+            setSelectedBatiment(batiment);
+            setShowFormBat(true);
+
+        } else {
+            setShowFormBat(!showFormBat);
+        }
+
     };
 
     const createBuildingOnClick = () => {
-        setShowFormCreate(true);
+        setShowFormCreate(!showFormCreate);
     };
 
     const deleteBuildingOnClick = async (batiment) => {
@@ -47,14 +53,13 @@ const Batiments = () => {
 
     return (
         <div className="adminPage">
-            <Link to="/admin">Retour</Link>
+            <Link className="btn btn-primary mt-1" to="/admin">Retour</Link>
             < br />
-            <button onClick={() => { createBuildingOnClick() }}>Créer un bâtiment</button>
+            <button className="btn btn-outline-success my-1" onClick={() => { createBuildingOnClick() }}>Créer un bâtiment</button>
             {showFormCreate && <CreateBuilding />}
 
 
             <table className="adminTable" id="tableauBatiments">
-                <caption>Bâtiments</caption>
                 <thead>
                     <tr>
                         <th colSpan="1" className="tabCase tabTitle">Nom</th>
@@ -74,10 +79,10 @@ const Batiments = () => {
                                 <td className="tabCase">{batiment.latitude}</td>
                                 <td className="tabCase">{batiment.longitude}</td>
                                 <td>
-                                    <button onClick={() => watchBuildingOnClick(batiment)}>Sélectionner</button>
+                                    <button className="btn btn-success" onClick={() => watchBuildingOnClick(batiment)}>Modifier</button>
                                 </td>
                                 <td>
-                                    <button onClick={() => deleteBuildingOnClick(batiment)}>Supprimer</button>
+                                    <button className="btn btn-danger" onClick={() => deleteBuildingOnClick(batiment)}>Supprimer</button>
                                 </td>
                             </tr>
                         ))

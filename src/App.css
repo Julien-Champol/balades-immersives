@@ -3,11 +3,13 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    overflow: hidden;
 }
 
 .menu {
     width: 18vw;
 }
+
 
 #inputRechercheBatiment {
     margin-bottom: 10px;
@@ -153,14 +155,23 @@ tr:hover {
 
 .tabTitle {
     background-color: #007cbd;
+    color: white;
 }
 
 #tableauBatiments {
     margin-bottom: 50px;
 }
 
+#submitFormUser {
+    margin-top:10px
+}
+
 #tableauUsers {
-    margin-top: 50px;
+    /*margin-top: 50px;*/
+}
+
+.form-group {
+    margin : 10px 0;
 }
 
 /* CSS de la vue 360 */
@@ -178,3 +189,4 @@ tr:hover {
 .boutonRetourScene360 {
     padding-left: 10px
 }
+

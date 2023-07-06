@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import {useState} from "react";
 import utils from "../Utils/utils.json";
 
 const CreateBuilding = () => {
@@ -49,36 +49,49 @@ const CreateBuilding = () => {
     return (
         <>
             <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="name">Nom</label>
+                    <input type="text" className="form-control" name="name" id="name" placeholder="Nom"/>
+                </div>
 
-                <label htmlFor="name">Nom</label>
-                <input type="text" name="name" id="name" placeholder="Nom" />
-                <br />
+                <div className="form-group">
+                    <label htmlFor="address">Adresse</label>
+                    <input type="text" className="form-control" name="address" id="address" placeholder="Adresse"/>
+                </div>
 
-                <label htmlFor="address">Adresse</label>
-                <input type="text" name="address" id="address" placeholder="Adresse" />
-                <br />
+                <div className="form-group">
+                    <label htmlFor="latitude">Latitude</label>
+                    <input type="text" name="latitude" className="form-control" id="latitude" placeholder="Latitude"/>
+                </div>
 
-                <label htmlFor="latitude">Latitude</label>
-                <input type="text" name="latitude" id="latitude" placeholder="Latitude" />
-                <br />
+                <div className="form-group">
+                    <label htmlFor="e">Longitude</label>
+                    <input type="text" className="form-control" name="e" id="e" placeholder="Longitude"/>
+                </div>
 
-                <label htmlFor="e">Longitude</label>
-                <input type="text" name="e" id="e" placeholder="Longitude" />
-                <br />
 
                 <label htmlFor="photo">Photo</label>
-                <input type="file" name="photo" id="photo" onChange={
-                    (event) => {
-                        setImageSelected(event.target.files[0]);
-                    }
-                } />
 
-                <input type="text" name="URLPhoto" id="URLPhoto" style={{ display: 'none' }} />
+                <div className="form-group input-group">
 
-                <button id="uploadPicture" onClick={handlePhotoUpload}>Charger la photo</button>
-                < br />
+                    <input type="file" className="form-control" name="photo" id="photo" onChange={
+                        (event) => {
+                            setImageSelected(event.target.files[0]);
+                        }
+                    }/>
+                    <div className="input-group-prepend">
 
-                <button type="submit" id="submitForm">Enregistrer</button>
+                        <button id="uploadPicture" className="btn btn-outline-secondary"
+                                onClick={handlePhotoUpload}>Charger la photo
+                        </button>
+                    </div>
+
+                </div>
+
+                {/*<input type="text" name="URLPhoto" id="URLPhoto" style={{display: 'none'}}/>*/}
+
+
+                <button type="submit" className="btn btn-primary mb-2" id="submitForm">Enregistrer</button>
             </form>
         </>
     )
