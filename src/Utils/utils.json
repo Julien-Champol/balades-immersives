@@ -12,6 +12,7 @@
             "createUser": "https://balades-immersives.tech/users",
             "updateUser": "https://balades-immersives.tech/users/{userId}",
             "deleteUser": "https://balades-immersives.tech/users/{userId}",
+            "connectUser": "https://balades-immersives.tech/users/connexion",
             "getPhotos360WithMoves" : "https://balades-immersives.tech/photos360s-with-moves/{batimentId}"
         }
     },
@@ -21,6 +22,10 @@
         "confirmImageUploadOnCloudinary": "Photo chargée correctement",
         "cannotUploadToCloudinary": "Imposible de téléverser la photo",
         "cannotConnectToApi": "Imposible de se connecter à l'API",
-        "passwordsNotCorresponding": "Les mots de passe ne sont pas identiques"
+        "passwordsNotCorresponding": "Les mots de passe ne sont pas identiques",
+        "cannotHashPassword": "Erreur lors du hachage du mot de passe",
+        "emailAlreadyTaken": "Un utilisateur avec cette adresse e-mail existe déjà !",
+        "connectionError": "Adresse mail ou mot de passe incorrect",
+        "confirmDeletionOfUser": "Etes vous sûr de vouloir supprimer cet utilisateur ?"
     }
 }
