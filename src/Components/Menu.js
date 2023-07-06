@@ -11,6 +11,7 @@ const Menu = () => {
 
     const positionBordeaux = [44.79158, -0.61149];
     const defaultZoom = 13;
+    
     const [searchValue] = useState();
     const [buildings, setBuildings] = useState([]);
     const [zoomedBuilding, setZoomedBuilding] = useState({});

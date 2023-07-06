@@ -19,8 +19,16 @@ const Admin = () => {
             <div className="adminPage">
                 <h2>Espace administration</h2>
                 <p>Vous êtes dans l'espace de gestion des bâtiments, des photos associées et des utilisateurs.</p>
-                <Link className="btn btn-primary" to="/admin/buildings">Voir les bâtiments</Link>
-                <Link className="btn btn-primary mx-1" to="/admin/users">Voir les utilisateurs</Link>
+
+
+                <Link className="btn btn-primary" to={'/admin/buildings'} state={{ user }}>
+                    <span>Voir les bâtiments</span>
+                </Link>
+                <Link className="btn btn-primary mx-1" to={'/admin/users'} state={{ user }}>
+                    <span>Voir les utilisateurs</span>
+                </Link>
+                <Link className="btn btn-primary" to="/"> Retour à la page d'acceuil</Link>
+
             </div>
         )
     } else {

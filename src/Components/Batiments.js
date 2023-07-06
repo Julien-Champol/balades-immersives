@@ -1,15 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import utils from '../Utils/utils.json';
 import CreateBuilding from "./CreateBuilding";
 import UpdateBuilding from "./UpdateBuilding";
 
 const Batiments = () => {
+    const location = useLocation();
+
     const [batiments, setBatiments] = useState([]);
     const [showFormBat, setShowFormBat] = useState(false);
     const [showFormCreate, setShowFormCreate] = useState(false);
     const [selectedBatiment, setSelectedBatiment] = useState(null);
+
+    let u;
+    if (location.state != null) {
+        u = location.state.user;
+    }
 
     useEffect(() => {
         axios.get(utils.api.baladesImmersives.getBuildings)
@@ -19,7 +26,7 @@ const Batiments = () => {
     }, []);
 
     const showBuildingOnClick = (batiment) => {
-        if(batiment !== selectedBatiment) {
+        if (batiment !== selectedBatiment) {
             setSelectedBatiment(batiment);
             setShowFormBat(true);
         } else {
@@ -49,48 +56,58 @@ const Batiments = () => {
             }
         }
     };
+    if (u) {
+        return (
+            <div className="adminPage">
+                <Link className="btn btn-primary mt-1" to={'/admin'} state={{ u }}>
+                    <span>Retour</span>
+                </Link>
+                < br />
+                <button className="btn btn-outline-success my-1" onClick={() => { showCreateBuildingOnClick() }}>Créer un bâtiment</button>
+                {showFormCreate && <CreateBuilding />}
 
-    return (
-        <div className="adminPage">
-            <Link className="btn btn-primary mt-1" to="/admin">Retour</Link>
-            < br />
-            <button className="btn btn-outline-success my-1" onClick={() => { showCreateBuildingOnClick() }}>Créer un bâtiment</button>
-            {showFormCreate && <CreateBuilding />}
 
-
-            <table className="adminTable" id="tableauBatiments">
-                <thead>
-                    <tr>
-                        <th colSpan="1" className="tabCase tabTitle">Nom</th>
-                        <th className="tabCase tabTitle">Adresse</th>
-                        <th className="tabCase tabTitle">Latitude</th>
-                        <th className="tabCase tabTitle">Longitude</th>
-                        <th className="tabCase tabTitle">{" "}</th>
-                        <th className="tabCase tabTitle">{" "}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        batiments.map((batiment) => (
-                            <tr key={batiment._id}>
-                                <td className="tabCase">{batiment.name}</td>
-                                <td className="tabCase">{batiment.address}</td>
-                                <td className="tabCase">{batiment.latitude}</td>
-                                <td className="tabCase">{batiment.longitude}</td>
-                                <td>
-                                    <button className="btn btn-success" onClick={() => showBuildingOnClick(batiment)}>Modifier</button>
-                                </td>
-                                <td>
-                                    <button className="btn btn-danger" onClick={() => deleteBuildingOnClick(batiment)}>Supprimer</button>
-                                </td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
-            {showFormBat && <UpdateBuilding batiment={selectedBatiment} />}
-        </div>
-    )
+                <table className="adminTable" id="tableauBatiments">
+                    <thead>
+                        <tr>
+                            <th colSpan="1" className="tabCase tabTitle">Nom</th>
+                            <th className="tabCase tabTitle">Adresse</th>
+                            <th className="tabCase tabTitle">Latitude</th>
+                            <th className="tabCase tabTitle">Longitude</th>
+                            <th className="tabCase tabTitle">{" "}</th>
+                            <th className="tabCase tabTitle">{" "}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            batiments.map((batiment) => (
+                                <tr key={batiment._id}>
+                                    <td className="tabCase">{batiment.name}</td>
+                                    <td className="tabCase">{batiment.address}</td>
+                                    <td className="tabCase">{batiment.latitude}</td>
+                                    <td className="tabCase">{batiment.longitude}</td>
+                                    <td>
+                                        <button className="btn btn-success" onClick={() => showBuildingOnClick(batiment)}>Modifier</button>
+                                    </td>
+                                    <td>
+                                        <button className="btn btn-danger" onClick={() => deleteBuildingOnClick(batiment)}>Supprimer</button>
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+                {showFormBat && <UpdateBuilding batiment={selectedBatiment} />}
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                <p>Vous devez être connecté pour accéder à l'espace administration.</p>
+                <Link to="/">Retour à la page d'acceuil</Link>
+            </div>
+        );
+    }
 };
 
 export default Batiments;
