@@ -1,6 +1,6 @@
-import {Link,useLocation} from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const Admin = ({route,navigation}) => {
+const Admin = () => {
 
  
     const location = useLocation();
@@ -19,10 +19,17 @@ const Admin = ({route,navigation}) => {
     
     
                 <p>Vous êtes dans l'espace de gestion des bâtiments, des photos associées et des utilisateurs.</p>
-    
-                <Link to="/admin/buildings">Voir les bâtiments</Link>
+
+
+                <Link to={'/admin/buildings'} state={{ user }}>
+                <span>Voir les bâtiments</span>
+                </Link>
                 < br/>
-                <Link to="/admin/users">Voir les utilisateurs</Link>
+                <Link to={'/admin/users'} state={{ user }}>
+                <span>Voir les users</span>
+                </Link>
+                <br/>
+                <Link to="/"> Retour à la page d'acceuil</Link>
     
             </div>
         )

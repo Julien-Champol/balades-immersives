@@ -2,11 +2,10 @@ import axios from "axios";
 import 'leaflet/dist/leaflet.css';
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
+import { Link } from "react-router-dom";
 import utils from '../Utils/utils.json';
 import Markers from "./Markers";
 import ZoomController from "./ZoomController";
-import { useNavigate,Link } from "react-router-dom";
-import {log} from "three/nodes";
 
 const Menu = () => {
 
@@ -16,12 +15,6 @@ const Menu = () => {
     const [buildings, setBuildings] = useState([]);
     const [position, setPosition] = useState(positionBordeaux);
     const [zoom, setZoom] = useState(defaultZoom);
-
-    const navigate = useNavigate();
-
-  const handleLoginClick = () => {
-    navigate("/login");
-  };
 
     /**
      * Récupération de tous les bâtiments depuis l'api
