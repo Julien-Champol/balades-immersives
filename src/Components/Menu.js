@@ -97,7 +97,6 @@ const Menu = () => {
                     <ZoomController position={position} zoom={zoom} />
                 </MapContainer>
             </div>
-        </div>
     </>)
 }
 
