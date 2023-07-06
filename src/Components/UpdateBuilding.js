@@ -41,7 +41,6 @@ const UpdateBuilding = (props) => {
             URLPhoto: urlCloudinary
         };
 
-
         try {
             const updateBuildingRequest = utils.api.baladesImmersives.updateBuilding.replace('{batimentId}', building._id)
             const response = await axios.put(updateBuildingRequest, formData);

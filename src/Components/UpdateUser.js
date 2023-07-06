@@ -1,21 +1,8 @@
 import axios from "axios";
-import {useState} from "react";
 import utils from '../Utils/utils.json';
 
 const UpdateUser = (props) => {
     const myUser = props.user;
-    const [formData, setFormData] = useState({
-        nomUser: myUser.name || '',
-        emailUser: myUser.email || ''
-    });
-
-    const handleInputChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-            [e.target.email]: e.target.value,
-        });
-    };
 
     const handleSubmitUser = async (e) => {
         e.preventDefault();
@@ -28,7 +15,6 @@ const UpdateUser = (props) => {
         try {
             const updateUserRequest = utils.api.baladesImmersives.updateUser.replace('{userId}', myUser._id);
             const response = await axios.put(updateUserRequest, formData);
-
             if (response.status === 200) {
                 window.location.reload();
             }
@@ -43,14 +29,12 @@ const UpdateUser = (props) => {
                 <p>{myUser.name}</p>
                 <div className="form-group">
                     <label htmlFor="nomUser">Nom</label>
-                    <input type="text" name="nomUser" className="form-control" id="nomUser" defaultValue={myUser.name}
-                           /*onChange={handleInputChange}*//>
+                    <input type="text" name="nomUser" className="form-control" id="nomUser" defaultValue={myUser.name}/>
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="emailUser">Adresse</label>
-                    <input type="text" name="emailUser" className="form-control" id="emailUser" defaultValue={myUser.email}
-                           /* onChange={handleInputChange}*//>
+                    <input type="text" name="emailUser" className="form-control" id="emailUser" defaultValue={myUser.email}/>
                 </div>
 
                 <button type="submit" className="btn btn-primary mb-2" id="submitFormUser">Mettre à jour</button>

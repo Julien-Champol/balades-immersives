@@ -16,26 +16,18 @@ const Menu = () => {
     const [zoomedBuilding, setZoomedBuilding] = useState({});
     const [position, setPosition] = useState(positionBordeaux);
     const [zoom, setZoom] = useState(defaultZoom);
-    
+
     const increasedZoom = 17;
 
-    /**
-     * Récupération de tous les bâtiments depuis l'api
-     */
     useEffect(() => {
         axios({
-            method: 'get', url: utils.api.baladesImmersives.getBuildings
+            method: 'get', url: utils.api.baladesImmersives.getBuildings // Récupération de tous les bâtiments depuis l'api
         }).then((res) => {
             setBuildings(res.data);
         })
         // eslint-disable-next-line
     }, []);
 
-    /**
-     * Gestion du click sur les div des bâtiments
-     *
-     * @param {*} e événement de changement de l'état du bouton radio
-     */
     const handleOnClick = (id) => {
         if (id !== null) {
             const selectedBuilding = buildings.find(building => building._id === id);
@@ -97,7 +89,7 @@ const Menu = () => {
                     <ZoomController position={position} zoom={zoom} />
                 </MapContainer>
             </div>
-    </>)
+        </>)
 }
 
 export default Menu;

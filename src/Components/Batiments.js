@@ -18,18 +18,17 @@ const Batiments = () => {
             })
     }, []);
 
-    const watchBuildingOnClick = (batiment) => {
+    const showBuildingOnClick = (batiment) => {
         if(batiment !== selectedBatiment) {
             setSelectedBatiment(batiment);
             setShowFormBat(true);
-
         } else {
             setShowFormBat(!showFormBat);
         }
 
     };
 
-    const createBuildingOnClick = () => {
+    const showCreateBuildingOnClick = () => {
         setShowFormCreate(!showFormCreate);
     };
 
@@ -55,7 +54,7 @@ const Batiments = () => {
         <div className="adminPage">
             <Link className="btn btn-primary mt-1" to="/admin">Retour</Link>
             < br />
-            <button className="btn btn-outline-success my-1" onClick={() => { createBuildingOnClick() }}>Créer un bâtiment</button>
+            <button className="btn btn-outline-success my-1" onClick={() => { showCreateBuildingOnClick() }}>Créer un bâtiment</button>
             {showFormCreate && <CreateBuilding />}
 
 
@@ -79,7 +78,7 @@ const Batiments = () => {
                                 <td className="tabCase">{batiment.latitude}</td>
                                 <td className="tabCase">{batiment.longitude}</td>
                                 <td>
-                                    <button className="btn btn-success" onClick={() => watchBuildingOnClick(batiment)}>Modifier</button>
+                                    <button className="btn btn-success" onClick={() => showBuildingOnClick(batiment)}>Modifier</button>
                                 </td>
                                 <td>
                                     <button className="btn btn-danger" onClick={() => deleteBuildingOnClick(batiment)}>Supprimer</button>

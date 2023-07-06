@@ -20,19 +20,16 @@ const Users = () => {
             .catch((error) => {
                 console.log(error);
             });
-
         // eslint-disable-next-line
     }, []);
 
-    // fonction pour afficher le formulaire de modification d'un utilisateur
-    const watchUserClick = (user) => {
-        if(user !== selectedUser) {
+    const watchUserFormOnClick = (user) => {
+        if (user !== selectedUser) {
             setSelectedUser(user);
             setShowFormUser(true);
         } else {
             setShowFormUser(!showFormUser)
         }
-
     };
 
     const handleCreateUser = () => {
@@ -40,8 +37,7 @@ const Users = () => {
     };
 
     const deleteUserClick = async (user) => {
-        // affiche de popup pour confirmer la suppression
-        const confirmedUser = window.confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?");
+        const confirmedUser = window.confirm(utils.messages.confirmDeletionOfUser);
 
         if (confirmedUser) {
             try {
@@ -63,9 +59,7 @@ const Users = () => {
             <Link className="btn btn-primary mt-1" to="/admin">Retour</Link>
             < br />
             <button className="btn btn-outline-success my-1" onClick={() => { handleCreateUser() }}>Créer un utilisateur</button>
-            {showFormCreate && <CreateUser users={users}/>}
-
-
+            {showFormCreate && <CreateUser users={users} />}
             <table className="adminTable" id="tableauUsers">
                 <thead>
                     <tr>
@@ -82,7 +76,7 @@ const Users = () => {
                                 <td className="tabCase">{user.name}</td>
                                 <td className="tabCase">{user.email}</td>
                                 <td>
-                                    <button className="btn btn-success" onClick={() => watchUserClick(user)}>Modifier</button>
+                                    <button className="btn btn-success" onClick={() => watchUserFormOnClick(user)}>Modifier</button>
                                 </td>
                                 <td>
                                     <button className="btn btn-danger" onClick={() => deleteUserClick(user)}>Supprimer</button>
