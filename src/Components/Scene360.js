@@ -13,16 +13,17 @@ import utils from '../Utils/utils.json';
 function Scene360() {
 
     const navigate = useNavigate();
-    const {batimentId} = useParams();
-
-    // Définition des variables globales et constantes
+    const { batimentId } = useParams();
     const sceneRef = useRef();
     const cameraRef = useRef();
     const rendererRef = useRef();
     const canvasRef = useRef();
     const containerRef = useRef()
+
     const rayCaster = new THREE.Raycaster();
+
     const tooltip = document.querySelector('.tooltip')
+
     let tooltipActive = false;
     let listScene = [];
 
@@ -31,7 +32,8 @@ function Scene360() {
         if (header) {
             header.style.display = "none"
         }
-        // A changer par l'adresse de l'API distante
+        document.body.style.overflow = "hidden"
+
         const uri = utils.api.baladesImmersives.getPhotos360WithMoves.replace('{batimentId}', batimentId);
         fetch(uri)
             .then(res => res.json())
@@ -105,8 +107,6 @@ function Scene360() {
                     navigate("/")
                 }
             })
-
-
     }, []);
 
 
@@ -158,16 +158,14 @@ function Scene360() {
         // }
     }
 
-
     const onResize = () => {
         rendererRef.current.renderer.setSize(window.innerWidth, window.innerHeight)
         cameraRef.current.camera.aspect = window.innerWidth / window.innerHeight
     }
 
     return <div>
-        <canvas ref={canvasRef}/>
+        <canvas ref={canvasRef} />
     </div>;
 }
-
 
 export default Scene360;

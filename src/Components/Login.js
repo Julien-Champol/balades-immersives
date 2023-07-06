@@ -1,73 +1,68 @@
 import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import utils from '../Utils/utils.json';
 
 const Login = () => {
-  const bcrypt = require('bcryptjs');
+    const bcrypt = require('bcryptjs');
 
-  const navigate = useNavigate();
-  
+    const [msgError, setMsgError] = useState("")
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const navigate = useNavigate();
 
-    const formData = {
-      email: e.target.emailUser.value,
-    };
-    try {
-      console.log("mon formulaire: ", formData)
-      const response = await axios.post(`https://balades-immersives.tech/users/connexion`, formData);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-      console.log(" test de la réponse", response.data[0]);
-      if (response.status === 201 && response.data.length === 1) {
-        // Retour ok
-        console.log(response.data[0].password)
-        bcrypt.compare(e.target.passwordUser.value, response.data[0].password, (err, result) => {
-          if (result) {
-            console.log('Connexion réussie');
-            navigate("/admin", { state: { u: response.data[0] } });
-          } else {
-            // Le mot de passe est incorrect
-            console.log('Mot de passe incorrect');
-          }
-        });
-      } else {
-        // Retour avec erreur
-        console.log(formData);
+        let email = e.target.emailUser.value;
+        const passwordUser = e.target.passwordUser.value;
 
-        console.log('Échec de la connexion');
-      }
-    } catch (error) {
-      // Pas d'envoi
-      console.log('erreur: ', error);
-    }
-  }
+        const formData = {
+            email: email,
+        };
+        try {
+            const response = await axios.post(utils.api.baladesImmersives.connectUser, formData);
 
-
-
-
-
-  return (
-    <> {
-      <div>
-        <h2>Connexion</h2>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="emailUser">Adresse email</label>
-          <input type="text" name="emailUser" id="emailUser" placeholder="Votre email" />
-          <br />
-
-          <label htmlFor="passwordUser">Mot de passe</label>
-          <input type="password" name="passwordUser" id="passwordUser" placeholder="mot de passe" />
-          <br />
-          <button type="submit" id="submitFormUser">Valider</button>
-        </form>
-      </div>
+            if (response.status === 201 && response.data.length === 1) {
+                const passwordUserBDD = response.data[0].password;
+                bcrypt.compare(passwordUser, passwordUserBDD, (err, result) => {
+                    if (result) {
+                        navigate("/admin", { state: { u: response.data[0] } });
+                    } else {
+                        setMsgError(utils.messages.connectionError);
+                    }
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    </>
-  )
+    return (
+        <> {
+            <div>
+                <h2>Connexion</h2>
+                <form onSubmit={handleSubmit}>
+                    {msgError !== "" && <div className="alert alert-danger">
+                        {msgError}
+                    </div>}
+                    <div className="form-group">
+                        <label htmlFor="emailUser">Adresse mail</label>
+                        <input type="email" className="form-control" id="emailUser"
+                            aria-describedby="emailHelp"
+                            placeholder="Entrer email" />
+                    </div>
 
-
+                    <div className="form-group">
+                        <label htmlFor="passwordUser">Password</label>
+                        <input type="password" className="form-control" id="passwordUser"
+                            placeholder="Mot de passe" />
+                    </div>
+                    <button type="submit" className="btn btn-primary" id="submitFormUser">Valider</button>
+                </form>
+            </div>
+        }
+        </>
+    )
 }
 
 export default Login;

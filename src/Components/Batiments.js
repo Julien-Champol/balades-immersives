@@ -1,23 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link,useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import utils from '../Utils/utils.json';
 import CreateBuilding from "./CreateBuilding";
 import UpdateBuilding from "./UpdateBuilding";
 
 const Batiments = () => {
     const location = useLocation();
-    console.log(location.state);
-    let u;
-    if(location.state != null){
-        u = location.state.user;
-    }
-    console.log(u);
-     
+
     const [batiments, setBatiments] = useState([]);
     const [showFormBat, setShowFormBat] = useState(false);
     const [showFormCreate, setShowFormCreate] = useState(false);
     const [selectedBatiment, setSelectedBatiment] = useState(null);
+
+    let u;
+    if (location.state != null) {
+        u = location.state.user;
+    }
 
     useEffect(() => {
         axios.get(utils.api.baladesImmersives.getBuildings)
@@ -26,13 +25,18 @@ const Batiments = () => {
             })
     }, []);
 
-    const watchBuildingOnClick = (batiment) => {
-        setSelectedBatiment(batiment);
-        setShowFormBat(true);
+    const showBuildingOnClick = (batiment) => {
+        if (batiment !== selectedBatiment) {
+            setSelectedBatiment(batiment);
+            setShowFormBat(true);
+        } else {
+            setShowFormBat(!showFormBat);
+        }
+
     };
 
-    const createBuildingOnClick = () => {
-        setShowFormCreate(true);
+    const showCreateBuildingOnClick = () => {
+        setShowFormCreate(!showFormCreate);
     };
 
     const deleteBuildingOnClick = async (batiment) => {
@@ -52,19 +56,18 @@ const Batiments = () => {
             }
         }
     };
-    if(u){
+    if (u) {
         return (
             <div className="adminPage">
-                <Link to={'/admin'} state={{ u }}>
-                <span>Retour</span>
+                <Link className="btn btn-primary mt-1" to={'/admin'} state={{ u }}>
+                    <span>Retour</span>
                 </Link>
                 < br />
-                <button onClick={() => { createBuildingOnClick() }}>Créer un bâtiment</button>
+                <button className="btn btn-outline-success my-1" onClick={() => { showCreateBuildingOnClick() }}>Créer un bâtiment</button>
                 {showFormCreate && <CreateBuilding />}
-    
-    
+
+
                 <table className="adminTable" id="tableauBatiments">
-                    <caption>Bâtiments</caption>
                     <thead>
                         <tr>
                             <th colSpan="1" className="tabCase tabTitle">Nom</th>
@@ -84,10 +87,10 @@ const Batiments = () => {
                                     <td className="tabCase">{batiment.latitude}</td>
                                     <td className="tabCase">{batiment.longitude}</td>
                                     <td>
-                                        <button onClick={() => watchBuildingOnClick(batiment)}>Sélectionner</button>
+                                        <button className="btn btn-success" onClick={() => showBuildingOnClick(batiment)}>Modifier</button>
                                     </td>
                                     <td>
-                                        <button onClick={() => deleteBuildingOnClick(batiment)}>Supprimer</button>
+                                        <button className="btn btn-danger" onClick={() => deleteBuildingOnClick(batiment)}>Supprimer</button>
                                     </td>
                                 </tr>
                             ))
@@ -97,17 +100,14 @@ const Batiments = () => {
                 {showFormBat && <UpdateBuilding batiment={selectedBatiment} />}
             </div>
         )
-    }else{
+    } else {
         return (
             <div>
-              <p>Vous devez être connecté pour accéder à l'espace administration.</p>
-              <Link to="/">Retour à la page d'acceuil</Link>
+                <p>Vous devez être connecté pour accéder à l'espace administration.</p>
+                <Link to="/">Retour à la page d'acceuil</Link>
             </div>
-          );
-
+        );
     }
-
-    
 };
 
 export default Batiments;

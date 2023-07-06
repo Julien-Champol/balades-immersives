@@ -41,8 +41,6 @@ const UpdateBuilding = (props) => {
             URLPhoto: urlCloudinary
         };
 
-        console.log(formData)
-
         try {
             const updateBuildingRequest = utils.api.baladesImmersives.updateBuilding.replace('{batimentId}', building._id)
             const response = await axios.put(updateBuildingRequest, formData);
@@ -60,40 +58,44 @@ const UpdateBuilding = (props) => {
             <form onSubmit={handleSubmit}>
                 <p>{building.name}</p>
 
-                <label htmlFor="nomBat">Nom</label>
-                <input type="text" name="nomBat" id="nomBat" defaultValue={building.name} />
-                <br />
+                <div className="form-group">
+                    <label htmlFor="nomBat">Nom</label>
+                    <input type="text" className="form-control" name="nomBat" id="nomBat" defaultValue={building.name} placeholder="Nom"/>
+                </div>
 
-                <label htmlFor="addressBat">Adresse</label>
-                <input type="text" name="addressBat" id="addressBat" defaultValue={building.address}
-                />
-                <br />
-
-                <label htmlFor="latitudeBat">Latitude</label>
-                <input type="text" name="latitudeBat" id="latitudeBat" defaultValue={building.latitude}
-                />
-                <br />
-
-                <label htmlFor="longitudeBat">Longitude</label>
-                <input type="text" name="longitudeBat" id="longitudeBat" defaultValue={building.longitude}
-                />
-                <br />
+                <div className="form-group">
+                    <label htmlFor="addressBat">Adresse</label>
+                    <input type="text" className="form-control" name="addressBat" defaultValue={building.address} id="addressBat" placeholder="Adresse"/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="latitudeBat">Latitude</label>
+                    <input type="text" name="latitudeBat" className="form-control" id="latitudeBat" defaultValue={building.latitude} placeholder="Latitude"/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="longitudeBat">Longitude</label>
+                    <input type="text" className="form-control" name="longitudeBat" id="longitudeBat" defaultValue={building.longitude} placeholder="Longitude"/>
+                </div>
 
                 <label htmlFor="photo">Photo</label>
-                <input type="file" name="photo" id="photo" onChange={
-                    (event) => {
-                        setImageSelected(event.target.files[0]);
-                    }
-                } />
-                <input type="text" defaultValue={building.URLPhoto} name="URLPhotoBat" id="URLPhotoBat"
-                    style={{ display: 'none' }}
-                />
 
-                <button id="uploadPicture" onClick={handlePhotoUpload}>Charger la photo
-                </button>
-                < br />
+                <div className="form-group input-group">
 
-                <button type="submit" id="submitForm">Mettre à jour</button>
+                    <input type="file" className="form-control" name="photo" id="photo" onChange={
+                        (event) => {
+                            setImageSelected(event.target.files[0]);
+                        }
+                    }/>
+                    <div className="input-group-prepend">
+
+                        <button id="uploadPicture" className="btn btn-outline-secondary"
+                                onClick={handlePhotoUpload}>Charger la photo
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <button type="submit" className="btn btn-primary mb-2" id="submitForm">Enregistrer</button>
             </form>
         </>
     )

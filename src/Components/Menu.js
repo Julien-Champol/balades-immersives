@@ -11,37 +11,34 @@ const Menu = () => {
 
     const positionBordeaux = [44.79158, -0.61149];
     const defaultZoom = 13;
-    const [searchValue, setSearchValue] = useState()
+    
+    const [searchValue] = useState();
     const [buildings, setBuildings] = useState([]);
+    const [zoomedBuilding, setZoomedBuilding] = useState({});
     const [position, setPosition] = useState(positionBordeaux);
     const [zoom, setZoom] = useState(defaultZoom);
 
-    /**
-     * Récupération de tous les bâtiments depuis l'api
-     */
+    const increasedZoom = 17;
+
     useEffect(() => {
         axios({
-            method: 'get',
-            url: utils.api.baladesImmersives.getBuildings
+            method: 'get', url: utils.api.baladesImmersives.getBuildings // Récupération de tous les bâtiments depuis l'api
         }).then((res) => {
             setBuildings(res.data);
         })
         // eslint-disable-next-line
     }, []);
 
-    /**
-     * Gestion du click sur les div des bâtiments
-     *
-     * @param {*} e événement de changement de l'état du bouton radio
-     */
     const handleOnClick = (id) => {
         if (id !== null) {
             const selectedBuilding = buildings.find(building => building._id === id);
             setPosition([selectedBuilding.latitude, selectedBuilding.longitude]);
-            setZoom(15);
+            setZoomedBuilding(selectedBuilding);
+            setZoom(increasedZoom);
         } else if (id === null) {
             setPosition(positionBordeaux);
             setZoom(defaultZoom);
+            setZoomedBuilding({});
         }
     };
 
@@ -63,10 +60,10 @@ const Menu = () => {
         <>
             <div className="buildings-container">
                 <div className="titrePage">Bienvenue sur balades immersives !</div>
-                <div><Link to="/login">login</Link></div>
+                <div><Link className="btn btn-primary mb-1" to="/login">Se connecter</Link></div>
                 <label htmlFor="inputRechercheBatiment">Rechercher un bâtiment :</label>
                 <input type="search" value={searchValue} onChange={handleSearch} className="form-control"
-                       id="inputRechercheBatiment"></input>
+                    id="inputRechercheBatiment"></input>
                 {position[0] !== positionBordeaux[0] || position[1] !== positionBordeaux[1] ? (
                     <button className="btn btn-primary" onClick={() => handleOnClick(null)}>Recentrer sur
                         Bordeaux</button>
@@ -75,7 +72,7 @@ const Menu = () => {
                     {
                         buildings.map((building) => (
                             <div className="building-card" data-batiment={building.name + " " + building.address}
-                                 key={building._id} onClick={() => handleOnClick(building._id)}>
+                                key={building._id} onClick={() => handleOnClick(building._id)}>
                                 <h2>{building.name}</h2>
                                 <p>{building.address}</p>
                             </div>
@@ -84,17 +81,16 @@ const Menu = () => {
                 </div>
             </div>
             <div className="maps">
-                <MapContainer center={position} zoom={zoom} style={{height: "90vh"}}>
+                <MapContainer center={position} zoom={zoom} style={{ height: "90vh" }}>
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <Markers buildings={buildings}/>
-                    <ZoomController position={position} zoom={zoom}/>
+                    <Markers buildings={buildings} zoomedBuilding={zoomedBuilding} />
+                    <ZoomController position={position} zoom={zoom} />
                 </MapContainer>
             </div>
-        </>
-    )
+        </>)
 }
 
 export default Menu;

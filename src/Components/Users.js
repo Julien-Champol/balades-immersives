@@ -1,22 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link,useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import utils from '../Utils/utils.json';
 import CreateUser from "./CreateUser";
 import UpdateUser from "./UpdateUser";
 
 const Users = () => {
     const location = useLocation();
-    console.log(location.state);
-    let u;
-    if(location.state != null){
-        u = location.state.user;
-    }
-    console.log(u);
+
     const [users, setUsers] = useState([]);
     const [showFormUser, setShowFormUser] = useState(false);
     const [showFormCreate, setShowFormCreate] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
+
+    let u;
+    if (location.state != null) {
+        u = location.state.user;
+    }
 
 
     useEffect(() => {
@@ -27,23 +27,24 @@ const Users = () => {
             .catch((error) => {
                 console.log(error);
             });
-
         // eslint-disable-next-line
     }, []);
 
-    // fonction pour afficher le formulaire de modification d'un utilisateur
-    const watchUserClick = (user) => {
-        setSelectedUser(user);
-        setShowFormUser(true);
+    const watchUserFormOnClick = (user) => {
+        if (user !== selectedUser) {
+            setSelectedUser(user);
+            setShowFormUser(true);
+        } else {
+            setShowFormUser(!showFormUser)
+        }
     };
 
     const handleCreateUser = () => {
-        setShowFormCreate(true);
+        setShowFormCreate(!showFormCreate);
     };
 
     const deleteUserClick = async (user) => {
-        // affiche de popup pour confirmer la suppression
-        const confirmedUser = window.confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?");
+        const confirmedUser = window.confirm(utils.messages.confirmDeletionOfUser);
 
         if (confirmedUser) {
             try {
@@ -59,19 +60,16 @@ const Users = () => {
             }
         }
     };
-    if(u){
+    if (u) {
         return (
             <div className="adminPage">
-               <Link to={'/admin'} state={{ u }}>
-                <span>Retour</span>
+                <Link className="btn btn-primary mt-1" to={'/admin'} state={{ u }}>
+                    <span>Retour</span>
                 </Link>
                 < br />
-                <button onClick={() => { handleCreateUser() }}>Créer un utilisateur</button>
-                {showFormCreate && <CreateUser users={users}/>}
-    
-    
+                <button className="btn btn-outline-success my-1" onClick={() => { handleCreateUser() }}>Créer un utilisateur</button>
+                {showFormCreate && <CreateUser users={users} />}
                 <table className="adminTable" id="tableauUsers">
-                    <caption>Utilisateurs</caption>
                     <thead>
                         <tr>
                             <th colSpan="1" className="tabCase tabTitle">Nom</th>
@@ -87,10 +85,10 @@ const Users = () => {
                                     <td className="tabCase">{user.name}</td>
                                     <td className="tabCase">{user.email}</td>
                                     <td>
-                                        <button onClick={() => watchUserClick(user)}>Modifier</button>
+                                        <button className="btn btn-success" onClick={() => watchUserFormOnClick(user)}>Modifier</button>
                                     </td>
                                     <td>
-                                        <button onClick={() => deleteUserClick(user)}>Supprimer</button>
+                                        <button className="btn btn-danger" onClick={() => deleteUserClick(user)}>Supprimer</button>
                                     </td>
                                 </tr>
                             ))
@@ -100,16 +98,14 @@ const Users = () => {
                 {showFormUser && <UpdateUser user={selectedUser} />}
             </div>
         )
-    }else{
+    } else {
         return (
             <div>
-              <p>Vous devez être connecté pour accéder à l'espace administration.</p>
-              <Link to="/">Retour à la page d'acceuil</Link>
+                <p>Vous devez être connecté pour accéder à l'espace administration.</p>
+                <Link to="/">Retour à la page d'acceuil</Link>
             </div>
-          );
-
+        );
     }
-    
 };
 
 export default Users;
