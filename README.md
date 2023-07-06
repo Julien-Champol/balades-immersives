@@ -21,15 +21,17 @@ Julien DESSAIGNE
 
 Julien CHAMPOL
 
-- Gestion des repo Github
+- Gestion des repos Github
 - Déploiement des projets
 - CI/CD
 - Nom de domaine
-- Passage en https avec certificat
+- Passage en https avec Certbot
 - Review de code
-- Administration du VPS
+- Administration du VPS : mise en place pm2, nginx ...
 - Déplacement sur la carte interactive
 - Liste des bâtiments
+- Mise à jour des utilisateurs
+- Mise à jour des bâtiments
 
 Olivier BUTTNER
 
