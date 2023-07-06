@@ -88,7 +88,7 @@ const CreateBuilding = () => {
 
                 </div>
 
-                {/*<input type="text" name="URLPhoto" id="URLPhoto" style={{display: 'none'}}/>*/}
+                {<input type="text" name="URLPhoto" id="URLPhoto" style={{display: 'none'}}/>}
 
 
                 <button type="submit" className="btn btn-primary mb-2" id="submitForm">Enregistrer</button>
