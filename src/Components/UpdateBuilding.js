@@ -38,7 +38,8 @@ const UpdateBuilding = (props) => {
             address: e.target.addressBat.value,
             latitude: e.target.latitudeBat.value,
             longitude: e.target.longitudeBat.value,
-            URLPhoto: urlCloudinary
+            URLPhoto: urlCloudinary,
+            url : e.target.url.value
         };
 
 
@@ -75,6 +76,11 @@ const UpdateBuilding = (props) => {
                 <div className="form-group">
                     <label htmlFor="longitudeBat">Longitude</label>
                     <input type="text" className="form-control" name="longitudeBat" id="longitudeBat" defaultValue={building.longitude} placeholder="Longitude"/>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="url">URL du site du bâtiment</label>
+                    <input type="text" className="form-control" name="url" id="url" defaultValue={building.url} placeholder="url"/>
                 </div>
 
                 <label htmlFor="photo">Photo</label>

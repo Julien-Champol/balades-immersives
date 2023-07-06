@@ -30,7 +30,7 @@ const Markers = (props) => {
                             <Link className="btn btn-success" id="boutonRentrerBatiment" to={`/scene360/${batiment._id}`}>Rentrer dans le
                                 bâtiment</Link>
                             {batiment.url.length > 0 && <a className="linkPopup" href={batiment.url} target="_blank" rel="noreferrer">
-                                consulter le site
+                                Consulter le site
                             </a>}
                         </div>
 
