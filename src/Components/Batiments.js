@@ -13,7 +13,7 @@ const Batiments = () => {
     const [showFormCreate, setShowFormCreate] = useState(false);
     const [selectedBatiment, setSelectedBatiment] = useState(null);
 
-    let u;
+    let u = null;
     if (location.state != null) {
         u = location.state.user;
     }
@@ -56,10 +56,10 @@ const Batiments = () => {
             }
         }
     };
-    if (u) {
+    if (u!==null) {
         return (
             <div className="adminPage">
-                <Link className="btn btn-primary mt-1" to={'/admin'} state={{ u }}>
+                <Link className="btn btn-primary mt-1" to={'/admin'} state={{ u, firstConnexion : false }}>
                     <span>Retour</span>
                 </Link>
                 < br />
@@ -104,7 +104,7 @@ const Batiments = () => {
         return (
             <div>
                 <p>Vous devez être connecté pour accéder à l'espace administration.</p>
-                <Link to="/">Retour à la page d'acceuil</Link>
+                <Link className="btn btn-primary" to="/">Retour à la page d'acceuil</Link>
             </div>
         );
     }
