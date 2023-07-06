@@ -16,7 +16,7 @@
 
 .list-buildings {
     overflow-y: scroll;
-    max-height: 80vh;
+    max-height: 72vh;
     scrollbar-width: thin;
     -ms-overflow-style: none;
     scrollbar-color: transparent transparent;
