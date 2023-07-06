@@ -33,7 +33,8 @@ const CreateBuilding = () => {
             address: e.target.address.value,
             latitude: e.target.latitude.value,
             longitude: e.target.e.value,
-            URLPhoto: urlCloudinary
+            URLPhoto: urlCloudinary,
+            url: e.target.url.value
         };
         try {
             const response = await axios.post(utils.api.baladesImmersives.createBuilding, formData);
@@ -69,6 +70,11 @@ const CreateBuilding = () => {
                     <input type="text" className="form-control" name="e" id="e" placeholder="Longitude" />
                 </div>
 
+                <div className="form-group">
+                    <label htmlFor="url">URL du site du bâtiment</label>
+                    <input type="text" className="form-control" name="url" id="url" placeholder="url" />
+                </div>
+
 
                 <label htmlFor="photo">Photo</label>
                 <div className="form-group input-group">
@@ -85,6 +91,9 @@ const CreateBuilding = () => {
                         </button>
                     </div>
                 </div>
+
+                {<input type="text" name="URLPhoto" id="URLPhoto" style={{ display: 'none' }} />}
+
                 <button type="submit" className="btn btn-primary mb-2" id="submitForm">Enregistrer</button>
             </form>
         </>
