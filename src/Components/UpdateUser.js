@@ -41,18 +41,19 @@ const UpdateUser = (props) => {
         <>
             <form onSubmit={handleSubmitUser}>
                 <p>{myUser.name}</p>
+                <div className="form-group">
+                    <label htmlFor="nomUser">Nom</label>
+                    <input type="text" name="nomUser" className="form-control" id="nomUser" defaultValue={myUser.name}
+                           /*onChange={handleInputChange}*//>
+                </div>
 
-                <label htmlFor="nomUser">Nom</label>
-                <input type="text" name="nomUser" id="nomUser" value={formData.nomUser} onChange={handleInputChange}/>
-                <br/>
+                <div className="form-group">
+                    <label htmlFor="emailUser">Adresse</label>
+                    <input type="text" name="emailUser" className="form-control" id="emailUser" defaultValue={myUser.email}
+                           /* onChange={handleInputChange}*//>
+                </div>
 
-                <label htmlFor="emailUser">Adresse</label>
-                <input type="text" name="emailUser" id="emailUser" value={formData.emailUser}
-                       onChange={handleInputChange}/>
-                <br/>
-
-
-                <button type="submit" id="submitFormUser">Mettre à jour</button>
+                <button type="submit" className="btn btn-primary mb-2" id="submitFormUser">Mettre à jour</button>
             </form>
         </>
     )

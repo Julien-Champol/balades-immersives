@@ -26,12 +26,17 @@ const Users = () => {
 
     // fonction pour afficher le formulaire de modification d'un utilisateur
     const watchUserClick = (user) => {
-        setSelectedUser(user);
-        setShowFormUser(true);
+        if(user !== selectedUser) {
+            setSelectedUser(user);
+            setShowFormUser(true);
+        } else {
+            setShowFormUser(!showFormUser)
+        }
+
     };
 
     const handleCreateUser = () => {
-        setShowFormCreate(true);
+        setShowFormCreate(!showFormCreate);
     };
 
     const deleteUserClick = async (user) => {
@@ -55,14 +60,13 @@ const Users = () => {
 
     return (
         <div className="adminPage">
-            <Link to="/admin">Retour</Link>
+            <Link className="btn btn-primary mt-1" to="/admin">Retour</Link>
             < br />
-            <button onClick={() => { handleCreateUser() }}>Créer un utilisateur</button>
+            <button className="btn btn-outline-success my-1" onClick={() => { handleCreateUser() }}>Créer un utilisateur</button>
             {showFormCreate && <CreateUser users={users}/>}
 
 
             <table className="adminTable" id="tableauUsers">
-                <caption>Utilisateurs</caption>
                 <thead>
                     <tr>
                         <th colSpan="1" className="tabCase tabTitle">Nom</th>
@@ -78,10 +82,10 @@ const Users = () => {
                                 <td className="tabCase">{user.name}</td>
                                 <td className="tabCase">{user.email}</td>
                                 <td>
-                                    <button onClick={() => watchUserClick(user)}>Modifier</button>
+                                    <button className="btn btn-success" onClick={() => watchUserClick(user)}>Modifier</button>
                                 </td>
                                 <td>
-                                    <button onClick={() => deleteUserClick(user)}>Supprimer</button>
+                                    <button className="btn btn-danger" onClick={() => deleteUserClick(user)}>Supprimer</button>
                                 </td>
                             </tr>
                         ))

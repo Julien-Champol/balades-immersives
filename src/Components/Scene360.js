@@ -31,6 +31,8 @@ function Scene360() {
         if (header) {
             header.style.display = "none"
         }
+        document.body.style.overflow = "hidden"
+
         // A changer par l'adresse de l'API distante
         const uri = utils.api.baladesImmersives.getPhotos360WithMoves.replace('{batimentId}', batimentId);
         fetch(uri)
