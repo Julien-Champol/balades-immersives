@@ -7,17 +7,28 @@ import { Link, useLocation } from "react-router-dom";
 const Admin = () => {
 
     const location = useLocation();
-
-    let user;
-
+    let firstConnexion = true;
+    let user = null;
     if (location.state != null) {
+
         user = location.state.u;
     }
 
-    if (user) {
+    if(location.state.firstConnexion !== undefined) {
+        firstConnexion = location.state.firstConnexion
+    }
+
+    console.log(firstConnexion);
+
+    if (user !== null) {
         return (
             <div className="adminPage">
                 <h2>Espace administration</h2>
+                {firstConnexion && <div className    ="alert alert-primary" role="alert">
+                    Bienvenue {user.name}
+                </div>}
+                
+
                 <p>Vous êtes dans l'espace de gestion des bâtiments, des photos associées et des utilisateurs.</p>
 
 
@@ -35,7 +46,7 @@ const Admin = () => {
         return (
             <div>
                 <p>Vous devez être connecté pour accéder à l'espace administration.</p>
-                <Link to="/">Retour à la page d'acceuil</Link>
+                <Link className="btn btn-primary" to="/">Retour à la page d'acceuil</Link>
             </div>
         );
     }
