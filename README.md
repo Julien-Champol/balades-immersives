@@ -7,7 +7,7 @@ L'Université de Bordeaux a souhaité offrir la possibilité de découvrir le pa
 
 Il consiste en la prise de photos panoramique travaillées pour permettre un déplacement dans l'espace.
 
-### Répartition
+## Répartition
 
 Julien DESSAIGNE 
 
@@ -40,7 +40,7 @@ Olivier BUTTNER
 - Création des markers
 - Interface administration
 - Création de bâtiments ou d'utilisateurs
-- Création des supports autour du projet ( email, mongoDB, Cloudinary)
+- Création des supports autour du projet (email, mongoDB, Cloudinary)
 
 Maxime DUCAMIN
 
@@ -52,18 +52,23 @@ Maxime DUCAMIN
 - Prise de photo du rez de chaussée
 - Rework des sprites pour les tooltip
 
-### Lancement déployé
+## Déploiement
 
-Aucune commande à prévoir, un CI/CD est présent pour déployer la branche master automatiquement
-Il suffit de faire un push de sa branche et faire un merge request pour que le déploiement se fasse.
+Aucune commande à prévoir, un CI/CD est présent pour déployer la branche master automatiquement.
+Il suffit de faire un push de sa branche et faire une pull request pour que le déploiement se fasse.  
+Le site est déployé sur GitHub pages.  
 ATTENTION, le push sur la branche master n'est pas possible
 
-### Lancement en local
+## Lancement en local
 
 En local, le projet se lance par les commandes:
 - npm i       pour installer les dépendances
 - npm start pour lancer le serveur sur le port 3002
 
+En cas de doutes :
 
+- rm -rf node_modules
 
+- npm cache clean --force
 
+Puis lancement en local.
