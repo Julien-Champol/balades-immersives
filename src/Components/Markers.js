@@ -41,7 +41,6 @@ const Markers = (props) => {
                                 Consulter le site
                             </a>}
                         </div>
-
                     </Popup>
                 </Marker>
             ))}
