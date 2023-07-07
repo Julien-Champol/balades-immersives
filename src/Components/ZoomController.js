@@ -9,6 +9,7 @@ const ZoomController = (props) => {
   const zoom = props.zoom;
 
   if (position) {
+    map.closePopup();
     map.setView(position, zoom);
   }
 
